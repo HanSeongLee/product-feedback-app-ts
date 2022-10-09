@@ -1,0 +1,136 @@
+
+.menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  display: none;
+  width: 100%;
+  height: calc(100vh - 72px);
+  background: rgba(0, 0, 0, 0.5);
+
+  @keyframes slideInLeft {
+    0% {
+      transform: translateX(100%);
+    }
+
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+  &.open {
+    display: block;
+
+    .container {
+      animation: slideInLeft 0.8s ease-in-out both;
+      -webkit-animation: slideInLeft 0.8s ease-in-out both;
+      -moz-animation: slideInLeft 0.8s ease-in-out both;
+    }
+  }
+
+  .container {
+    position: absolute;
+    right: 0;
+    width: 271px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    background: #F7F8FD;
+    padding-top: 24px;
+  }
+
+  .categoryContainer, .roadmapBox {
+    background: #FFFFFF;
+    border-radius: 10px;
+  }
+
+  .categoryContainer {
+    display: flex;
+    gap: 14px 8px;
+    flex-wrap: wrap;
+    padding: 24px 18px 36px 24px;
+
+    button {
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 19px;
+      color: #4661E6;
+      background: #F2F4FF;
+      border-radius: 10px;
+      border: none;
+      padding: 5px 16px 6px 16px;
+      cursor: pointer;
+
+      &.active {
+        color: #FFFFFF;
+        background: #4661E6;
+      }
+    }
+  }
+
+  .roadmapBox {
+    display: flex;
+    flex-direction: column;
+    padding: 19px 24px 24px 24px;
+    gap: 24px;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .title {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 26px;
+        letter-spacing: -0.25px;
+        color: #3A4374;
+      }
+
+      .viewLink {
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 19px;
+        text-decoration-line: underline;
+        color: #4661E6;
+      }
+    }
+
+    .roadmapContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #647196;
+
+        .name {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          font-size: 16px;
+          line-height: 23px;
+
+          &::before {
+            width: 8px;
+            height: 8px;
+            background: var(--circle-color);
+            border-radius: 50%;
+            content: "";
+          }
+        }
+
+        .count {
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 23px;
+          text-align: right;
+        }
+      }
+    }
+  }
+}
