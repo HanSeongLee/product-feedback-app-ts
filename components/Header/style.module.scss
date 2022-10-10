@@ -1,0 +1,36 @@
+
+.header {
+  position: relative;
+  background: url("/img/suggestions/mobile/background-header.png") no-repeat;
+  background-size: cover;
+  padding: 16px 0 15px;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title {
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    letter-spacing: -0.1875px;
+    color: #FFFFFF;
+  }
+
+  .pageName {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 19px;
+    color: #FFFFFF;
+    opacity: 0.75;
+  }
+
+  .menuButton {
+    display: flex;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+}
