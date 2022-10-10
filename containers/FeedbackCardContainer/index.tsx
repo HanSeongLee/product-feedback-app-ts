@@ -1,28 +1,32 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, useEffect, useState } from 'react';
 import { FeedbackType } from 'types/feedback';
 import FeedbackCard from 'components/FeedbackCard';
 import Link from 'next/link';
+import axios from 'axios'
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
 
 }
 
-const feedbacks: FeedbackType[] = [
-    {
-        id: 1,
-        title: 'Add tags for solutions',
-        category: 'enhancement',
-        upvotes: 112,
-        status: 'suggestion',
-        description: 'Easier to search for solutions based on a specific stack.',
-        commentCount: 2,
-    },
-];
-
 const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
+    const [feedbackList, setFeedbackList] = useState<FeedbackType[]>([]);
+
+    useEffect(() => {
+        const loadFeedbackList = async () => {
+            try {
+                const { data } = await axios.get(`/api/feedback`);
+                setFeedbackList(data);
+            } catch (e) {
+                console.error(e);
+            }
+        };
+
+        loadFeedbackList();
+    }, []);
+
     return (
         <div {...props}>
-            {feedbacks?.map((feedback, index) => (
+            {feedbackList?.map((feedback, index) => (
                 <Link href={`/feedback/${feedback.id}`}>
                     <a key={index}>
                         <FeedbackCard feedback={feedback} />
