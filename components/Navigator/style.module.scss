@@ -1,0 +1,24 @@
+
+.navigator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .leftSide {
+    display: flex;
+    flex-direction: column;
+
+    .goBackButton {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 19px;
+      color: #647196;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}
