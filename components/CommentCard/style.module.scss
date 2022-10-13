@@ -1,0 +1,91 @@
+
+.commentCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .header {
+    display: flex;
+    gap: 16px;
+
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .userInfoContainer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      .name {
+        font-weight: 700;
+        font-size: 13px;
+        line-height: 19px;
+        letter-spacing: -0.181px;
+        color: #3A4374;
+      }
+
+      .username {
+        font-size: 13px;
+        line-height: 19px;
+        color: #647196;
+      }
+    }
+
+    .replyButton {
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 19px;
+      color: #4661E6;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    font-size: 13px;
+    line-height: 19px;
+    color: #647196;
+
+    .replyingTo {
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 19px;
+      color: #AD1FEA;
+    }
+  }
+
+  .replyContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    list-style: none;
+    margin-top: 24px;
+    padding-left: 24px;
+
+    > li {
+      position: relative;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        left: -24px;
+        width: 1px;
+        height: calc(100% + 24px);
+        background: #647196;
+        opacity: 0.1;
+        content: "";
+      }
+
+      &:last-child {
+        &::before {
+          height: 20px;
+        }
+      }
+    }
+  }
+}
