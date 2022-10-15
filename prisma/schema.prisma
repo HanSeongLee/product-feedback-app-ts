@@ -17,4 +17,28 @@ model Feedback {
     upvotes     Int
     status      String
     description String
+    comments    Comment[]
+}
+
+model User {
+    id          Int         @id @default(autoincrement())
+    image       String
+    name        String
+    username    String      @unique
+    comments    Comment[]   @relation("UserComments")
+    replies     Comment[]   @relation("UserReplies")
+}
+
+model Comment {
+    id           Int         @id @default(autoincrement())
+    content      String      @db.VarChar(256)
+    replyingToId Int?
+    replyingTo   User?       @relation("UserReplies", fields: [replyingToId], references: [id])
+    commentId    Int?
+    comment      Comment?    @relation("CommentReplies", fields: [commentId], references: [id])
+    replies      Comment[]   @relation("CommentReplies")
+    feedbackId   Int
+    feedback     Feedback    @relation(fields: [feedbackId], references: [id])
+    userId       Int
+    user         User        @relation("UserComments", fields: [userId], references: [id])
 }
