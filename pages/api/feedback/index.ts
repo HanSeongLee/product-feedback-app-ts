@@ -9,8 +9,23 @@ async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    const feedbackList = await prisma.feedback.findMany();
-    res.status(200).json(feedbackList);
+    const feedbackList = await prisma.feedback.findMany({
+        include: {
+            _count: {
+                select: {
+                    comments: true,
+                },
+            },
+        },
+    });
+
+    res.status(200).json(feedbackList.map((feedback) => {
+        return {
+            ...feedback,
+            commentCount: feedback._count.comments,
+            _count: undefined,
+        };
+    }));
 }
 
 export default withSentry(handler);
