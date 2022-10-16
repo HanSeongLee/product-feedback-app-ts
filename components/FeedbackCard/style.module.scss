@@ -68,6 +68,10 @@
       .commentCount {
         width: 18px;
         height: 19px;
+
+        &.zero {
+          opacity: 0.5;
+        }
       }
     }
   }

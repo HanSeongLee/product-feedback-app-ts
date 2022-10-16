@@ -41,7 +41,9 @@ const FeedbackCard: React.FC<IProps> = ({ feedback, onUpvoteClick, className, ..
                 </button>
                 <div className={styles.commentCountContainer}>
                     <CommentsIcon />
-                    <div className={styles.commentCount}>
+                    <div className={cn(styles.commentCount, {
+                        [styles.zero]: commentCount === 0,
+                    })}>
                         {commentCount}
                     </div>
                 </div>
