@@ -1,0 +1,49 @@
+
+.addCommentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .textarea {
+    min-height: 80px;
+    font-size: 13px;
+    line-height: 19px;
+    color: #3A4374;
+    background: #F7F8FD;
+    border-radius: 5px;
+    padding: 16px;
+    border: none;
+    resize: none;
+
+    &::placeholder {
+      color: #8C92B3;
+    }
+
+    &:focus {
+      outline: #4661E6 solid 1px;
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .textLength {
+      font-size: 13px;
+      line-height: 19px;
+      color: #647196;
+    }
+
+    .postCommentButton {
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 19px;
+      color: #F2F4FE;
+      background: #AD1FEA;
+      border-radius: 10px;
+      border: none;
+      padding: 10.5px 16px;
+    }
+  }
+}
