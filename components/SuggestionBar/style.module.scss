@@ -1,0 +1,31 @@
+
+.suggestionBar {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #F2F4FE;
+  background: #373F68;
+
+  .container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .addFeedbackButton {
+    min-width: 134px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 19px;
+    color: #F2F4FE;
+    background: #AD1FEA;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}
