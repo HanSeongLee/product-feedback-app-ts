@@ -1,0 +1,35 @@
+
+.form {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 10px;
+  padding: 44px 24px 24px 23.5px;
+  margin-top: 20px;
+
+  .icon {
+    position: absolute;
+    top: -20px;
+    left: 24px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.25px;
+    color: #3A4374;
+    margin-bottom: 24px;
+  }
+
+  .fields {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 24px;
+  }
+
+  .buttonContainer {
+    margin-top: 40px;
+  }
+}
