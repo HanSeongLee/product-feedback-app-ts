@@ -8,7 +8,9 @@ const SuggestionBar: React.FC = () => {
     return (
         <div className={styles.suggestionBar}>
             <Container className={styles.container}>
-                <Select label={'Sort by'}
+                <Select className={styles.select}
+                        valueClassName={styles.value}
+                        label={'Sort by'}
                         options={[
                             {
                                 label: 'Most Upvotes',

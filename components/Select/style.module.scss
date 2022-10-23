@@ -1,8 +1,9 @@
 
 .select {
   position: relative;
-  font-size: 13px;
-  line-height: 19px;
+  color: #3A4374;
+  background: #F7F8FD;
+  border-radius: 5px;
 
   &.open {
     .overlay {
@@ -19,12 +20,21 @@
     }
   }
 
-  .arrowIcon {
-    margin-left: 4px;
-    transition: transform 0.3s;
+  .value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    line-height: 19px;
+    padding: 14px 16px 15px 16px;
 
-    path {
-      stroke: #FFFFFF;
+    .arrowIcon {
+      margin-left: 4px;
+      transition: transform 0.3s;
+
+      path {
+        stroke: #4661E6;
+      }
     }
   }
 
