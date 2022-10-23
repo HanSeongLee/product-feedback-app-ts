@@ -5,12 +5,13 @@ import cn from 'classnames';
 interface IProps extends FormHTMLAttributes<HTMLFormElement> {
     icon: string;
     title: string;
-    buttons: ReactNode;
+    submitButtonText: string;
+    buttons?: ReactNode;
 }
 
 const Form: React.FC<IProps> = ({
-                                    icon, title, buttons, children,
-                                    className, ...props
+                                    icon, title, submitButtonText, buttons,
+                                    children, className, ...props
                                 }) => {
     return (
         <form className={cn(styles.form, className)}
@@ -31,6 +32,16 @@ const Form: React.FC<IProps> = ({
             </div>
 
             <div className={styles.buttonContainer}>
+                <button className={styles.submitButton}
+                        type={'submit'}
+                >
+                    {submitButtonText}
+                </button>
+                <button className={styles.resetButton}
+                        type={'reset'}
+                >
+                    Cancel
+                </button>
                 {buttons}
             </div>
         </form>

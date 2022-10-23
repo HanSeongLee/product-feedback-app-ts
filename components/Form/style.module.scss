@@ -30,6 +30,28 @@
   }
 
   .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 16px;
     margin-top: 40px;
+
+    button {
+      min-height: 40px;
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 19px;
+      color: #F2F4FE;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .submitButton {
+      background: #AD1FEA;
+    }
+
+    .resetButton {
+      background: #3A4374;
+    }
   }
 }
