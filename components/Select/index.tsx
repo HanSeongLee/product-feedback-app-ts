@@ -1,31 +1,31 @@
-import React, { HTMLAttributes, InputHTMLAttributes, useCallback, useState } from 'react';
+import React, { InputHTMLAttributes, useCallback, useState } from 'react';
 import styles from './style.module.scss';
 import cn from 'classnames';
 import ArrowDownIcon from 'public/icons/icon-arrow-down.svg';
 import { SelectOptionType } from 'types/select';
 
+// @ts-ignore
 interface IProps extends InputHTMLAttributes<HTMLInputElement> {
     label?: string;
+    value?: string;
     options: SelectOptionType[];
-    onOptionChange?: (option: SelectOptionType) => void;
+    onChange?: (value: string) => void;
     valueClassName?: string;
 }
 
 const Select: React.FC<IProps> = ({
-                                      label, options, onOptionChange, valueClassName,
-                                      className, ...props
+                                      label, value, options, onChange,
+                                      valueClassName, className, ...props
                                   }) => {
-    const [value, setValue] = useState<SelectOptionType | undefined>(options[0]);
     const [open, setOpen] = useState<boolean>(false);
 
     const handleOpenToggle = useCallback(() => {
         setOpen(!open);
     }, [open]);
 
-    const handleValueChange = useCallback((option: SelectOptionType) => {
-        setValue(option);
-        if (onOptionChange) {
-            onOptionChange(option);
+    const handleValueChange = useCallback((value: string) => {
+        if (onChange) {
+            onChange(value);
         }
         setOpen(false);
     }, []);
@@ -34,6 +34,7 @@ const Select: React.FC<IProps> = ({
         <div className={cn(styles.select, className, {
             [styles.open]: open,
         })}
+             {...props}
         >
             <div className={styles.overlay}
                  onClick={handleOpenToggle}
@@ -43,11 +44,11 @@ const Select: React.FC<IProps> = ({
             >
                 {label ? (
                     <>
-                        {label} : <strong>{value?.label}</strong>
+                        {label} : <strong>{options.find(({value: _value}) => _value === value)?.label}</strong>
                     </>
                 ) : (
                     <>
-                        {value?.label}
+                        {options.find(({value: _value}) => _value === value)?.label}
                     </>
                 )}&nbsp;
                 <ArrowDownIcon className={styles.arrowIcon} />
@@ -56,20 +57,16 @@ const Select: React.FC<IProps> = ({
                 <ul className={styles.list}>
                     {options.map((option, index) => (
                         <li className={cn(styles.item, {
-                            [styles.selected]: option.value === value?.value,
+                            [styles.selected]: option.value === value,
                         })}
                             key={index}
-                            onClick={_ => handleValueChange(option)}
+                            onClick={_ => handleValueChange(option.value)}
                         >
                             {option.label}
                         </li>
                     ))}
                 </ul>
             </div>
-            <input type={'hidden'}
-                   value={value?.value}
-                   {...props}
-            />
         </div>
     );
 };
