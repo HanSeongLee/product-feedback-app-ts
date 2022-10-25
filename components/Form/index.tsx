@@ -7,11 +7,12 @@ interface IProps extends FormHTMLAttributes<HTMLFormElement> {
     title: string;
     submitButtonText: string;
     buttons?: ReactNode;
+    onReset: () => void;
 }
 
 const Form: React.FC<IProps> = ({
                                     icon, title, submitButtonText, buttons,
-                                    children, className, ...props
+                                    onReset, children, className, ...props
                                 }) => {
     return (
         <form className={cn(styles.form, className)}
@@ -38,7 +39,8 @@ const Form: React.FC<IProps> = ({
                     {submitButtonText}
                 </button>
                 <button className={styles.resetButton}
-                        type={'reset'}
+                        type={'button'}
+                        onClick={onReset}
                 >
                     Cancel
                 </button>
