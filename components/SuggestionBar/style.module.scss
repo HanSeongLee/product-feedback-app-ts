@@ -18,8 +18,10 @@
     background: #373F68;
     color: #F2F4FE;
     padding-left: 0;
+    outline: none !important;
 
     .value {
+      color: #F2F4FE;
       padding: 0;
 
       svg path {

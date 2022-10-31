@@ -43,9 +43,9 @@ const Select: React.FC<IProps> = ({
                  onClick={handleOpenToggle}
             >
                 {label ? (
-                    <>
+                    <span>
                         {label} : <strong>{options.find(({value: _value}) => _value === value)?.label}</strong>
-                    </>
+                    </span>
                 ) : (
                     <>
                         {options.find(({value: _value}) => _value === value)?.label}

@@ -45,6 +45,7 @@
     top: calc(100% + 24px);
     left: 0;
     width: 100%;
+    min-width: 255px;
     display: flex;
     flex-direction: column;
     max-height: 0;
