@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import styles from './style.module.scss';
-import Header from 'components/Header';
 import Container from 'components/Container';
 import { useRouter } from 'next/router';
 import FeedbackCard from 'components/FeedbackCard';
@@ -9,6 +8,8 @@ import { FeedbackWithCommentsType } from 'types/feedback';
 import axios from 'axios';
 import CommentCardContainer from 'containers/CommentCardContainer';
 import Navigator from 'components/Navigator';
+import AddCommentFormContainer from 'containers/AddCommentFormContainer';
+import Link from 'next/link';
 
 const Home: NextPage = () => {
     const { query } = useRouter();
@@ -25,6 +26,10 @@ const Home: NextPage = () => {
             }
         }
 
+        if (!id) {
+            return;
+        }
+
         loadFeedback();
     }, [id]);
 
@@ -33,11 +38,13 @@ const Home: NextPage = () => {
             <main className={styles.main}>
                 <Container className={styles.container}>
                     <Navigator goBackUrl={'/'}>
-                        <button className={styles.editFeedbackButton}
-                                type={'button'}
-                        >
-                            Edit Feedback
-                        </button>
+                        <Link href={`/feedback/${id}/edit`}>
+                            <a className={styles.editFeedbackButton}
+                               type={'button'}
+                            >
+                                Edit Feedback
+                            </a>
+                        </Link>
                     </Navigator>
                     {feedback &&
                         (
@@ -53,6 +60,12 @@ const Home: NextPage = () => {
                                         />
                                     </div>
                                 )}
+                                <div className={styles.commentListBox}>
+                                    <div className={styles.title}>
+                                        Add Comment
+                                    </div>
+                                    <AddCommentFormContainer />
+                                </div>
                             </>
                         )
                     }
