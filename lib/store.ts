@@ -1,8 +1,9 @@
-import { useLayoutEffect } from "react";
-import create, { UseBoundStore } from "zustand";
-import createContext from "zustand/context";
-import { combine } from "zustand/middleware";
+import { useLayoutEffect } from 'react';
+import create, { UseBoundStore } from 'zustand';
+import createContext from 'zustand/context';
+import { combine } from 'zustand/middleware';
 import { FeedbackType } from 'types/feedback';
+import { RoadmapType } from 'types/roadmap';
 
 let store: any;
 
@@ -16,6 +17,7 @@ type UseStoreState = typeof initializeStore extends (
 const getDefaultInitialState = () => ({
     category: 'all',
     feedbackList: [] as FeedbackType[],
+    roadmapList: [] as RoadmapType[],
     sortBy: '0',
 });
 
@@ -31,6 +33,9 @@ export const initializeStore = (preloadedState = {}) => {
             },
             setFeedbackList: (feedbackList: FeedbackType[]) => {
                 set({ feedbackList, });
+            },
+            setRoadmapList: (roadmapList: RoadmapType[]) => {
+                set({ roadmapList, });
             },
             setSortBy: (sortBy: string) => {
                 set({ sortBy, });

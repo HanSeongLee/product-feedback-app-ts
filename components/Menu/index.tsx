@@ -1,7 +1,6 @@
 import React, { HTMLAttributes } from 'react';
 import styles from './style.module.scss';
 import Container from 'components/Container';
-import { categoryList, roadmapList } from 'lib/constants';
 import cn from 'classnames';
 import Link from 'next/link';
 import CategorySelectContainer from 'containers/CategorySelectContainer';

@@ -16,13 +16,14 @@ const useFeedback = () => {
             sortBy: store.sortBy,
             feedbackList: store.feedbackList,
             setFeedbackList: store.setFeedbackList,
+            setRoadmapList: store.setRoadmapList,
         }),
         shallow
     );
 };
 
 const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
-    const { category, sortBy, feedbackList, setFeedbackList } = useFeedback();
+    const { category, sortBy, feedbackList, setFeedbackList, setRoadmapList } = useFeedback();
 
     useEffect(() => {
         const makeSortQueries = () => {
@@ -63,7 +64,8 @@ const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
                         ...makeSortQueries(),
                     },
                 });
-                setFeedbackList(data);
+                setFeedbackList(data?.items);
+                setRoadmapList(data?.roadmap);
             } catch (e) {
                 console.error(e);
             }
