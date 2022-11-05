@@ -16,6 +16,7 @@ type UseStoreState = typeof initializeStore extends (
 const getDefaultInitialState = () => ({
     category: 'all',
     feedbackList: [] as FeedbackType[],
+    sortBy: '0',
 });
 
 const zustandContext = createContext<UseStoreState>();
@@ -30,6 +31,9 @@ export const initializeStore = (preloadedState = {}) => {
             },
             setFeedbackList: (feedbackList: FeedbackType[]) => {
                 set({ feedbackList, });
+            },
+            setSortBy: (sortBy: string) => {
+                set({ sortBy, });
             },
         }))
     );

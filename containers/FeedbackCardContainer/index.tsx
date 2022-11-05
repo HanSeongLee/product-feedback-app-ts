@@ -13,6 +13,7 @@ const useFeedback = () => {
     return useStore(
         (store) => ({
             category: store.category,
+            sortBy: store.sortBy,
             feedbackList: store.feedbackList,
             setFeedbackList: store.setFeedbackList,
         }),
@@ -21,14 +22,45 @@ const useFeedback = () => {
 };
 
 const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
-    const { category, feedbackList, setFeedbackList } = useFeedback();
+    const { category, sortBy, feedbackList, setFeedbackList } = useFeedback();
 
     useEffect(() => {
+        const makeSortQueries = () => {
+            switch (sortBy) {
+                case '0': {
+                    return {
+                        sort_by: 'upvotes',
+                        order_by: 'desc',
+                    };
+                }
+                case '1': {
+                    return {
+                        sort_by: 'upvotes',
+                        order_by: 'asc',
+                    };
+                }
+                case '2': {
+                    return {
+                        sort_by: 'commentCount',
+                        order_by: 'desc',
+                    };
+                }
+                case '3': {
+                    return {
+                        sort_by: 'commentCount',
+                        order_by: 'asc',
+                    };
+                }
+            }
+            return {};
+        };
+
         const loadFeedbackList = async () => {
             try {
                 const { data } = await axios.get(`/api/feedback`, {
                     params: {
                         category: category === 'all' ? undefined : category,
+                        ...makeSortQueries(),
                     },
                 });
                 setFeedbackList(data);
@@ -38,7 +70,7 @@ const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
         };
 
         loadFeedbackList();
-    }, [category]);
+    }, [category, sortBy]);
 
     return (
         <div {...props}>

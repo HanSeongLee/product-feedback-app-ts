@@ -9,12 +9,21 @@ async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    const { category } = req.query;
+    const { category, sort_by, order_by } = req.query;
 
     const feedbackList = await prisma.feedback.findMany({
         where: {
             category: category as string,
         },
+        orderBy: sort_by === 'upvotes' && order_by ? [
+            {
+                [sort_by as string]: order_by as string,
+            },
+        ] : sort_by === 'commentCount' && order_by ? {
+            comments: {
+                _count: order_by as string,
+            },
+        } as any : undefined,
         include: {
             _count: {
                 select: {

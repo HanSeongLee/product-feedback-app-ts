@@ -1,11 +1,23 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import styles from './style.module.scss';
 import Select from 'components/Select';
 import Container from 'components/Container';
 import Link from 'next/link';
+import { useStore } from 'lib/store';
+import shallow from 'zustand/shallow';
+
+const useSortBy = () => {
+    return useStore(
+        (store) => ({
+            sortBy: store.sortBy,
+            setSortBy: store.setSortBy,
+        }),
+        shallow
+    );
+};
 
 const SuggestionBar: React.FC = () => {
-    const [sortBy, setSortBy] = useState('0');
+    const { sortBy, setSortBy } = useSortBy();
 
     const handleSortBy = useCallback((newValue: string) => {
         setSortBy(newValue);
