@@ -19,6 +19,7 @@ const getDefaultInitialState = () => ({
     feedbackList: [] as FeedbackType[],
     roadmapList: [] as RoadmapType[],
     sortBy: '0',
+    menuOpen: false,
 });
 
 const zustandContext = createContext<UseStoreState>();
@@ -39,6 +40,9 @@ export const initializeStore = (preloadedState = {}) => {
             },
             setSortBy: (sortBy: string) => {
                 set({ sortBy, });
+            },
+            setMenuOpen: (open: boolean) => {
+                set({ menuOpen: open, });
             },
         }))
     );

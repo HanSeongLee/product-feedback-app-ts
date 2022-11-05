@@ -8,15 +8,19 @@ import RoadmapContainer from 'containers/RoadmapContainer';
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
     open?: boolean;
+    onClose: () => void;
 }
 
-const Menu: React.FC<IProps> = ({ open, className, ...props }) => {
+const Menu: React.FC<IProps> = ({ open, onClose, className, ...props }) => {
     return (
         <div className={cn(styles.menu, {
             [styles.open]: open,
         }, className)}
              {...props}
         >
+            <div className={styles.overlay}
+                 onClick={onClose}
+            ></div>
             <Container className={styles.container}>
                 <CategorySelectContainer className={styles.categoryContainer} />
 

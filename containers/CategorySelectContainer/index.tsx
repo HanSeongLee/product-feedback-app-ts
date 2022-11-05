@@ -14,16 +14,18 @@ const useCategory = () => {
         (store) => ({
             category: store.category,
             setCategory: store.setCategory,
+            setMenuOpen: store.setMenuOpen,
         }),
         shallow
     );
 };
 
 const CategorySelectContainer: React.FC<IProps> = ({ ...props }) => {
-    const { category, setCategory } = useCategory();
+    const { category, setCategory, setMenuOpen } = useCategory();
 
     const handleCategoryClick = useCallback((name: string) => {
         setCategory(name.toLowerCase());
+        setMenuOpen(false);
     }, []);
 
     return (

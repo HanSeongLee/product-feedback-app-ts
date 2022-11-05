@@ -5,13 +5,25 @@ import MenuIcon from 'public/icons/mobile/icon-hamburger.svg';
 import CloseIcon from 'public/icons/mobile/icon-close.svg';
 import Menu from 'components/Menu';
 import cn from 'classnames';
+import { useStore } from 'lib/store';
+import shallow from 'zustand/shallow';
 
 interface IProps extends HTMLAttributes<HTMLHeadElement> {
 
 }
 
+const useMenu = () => {
+    return useStore(
+        (store) => ({
+            menuOpen: store.menuOpen,
+            setMenuOpen: store.setMenuOpen,
+        }),
+        shallow
+    );
+};
+
 const Header: React.FC<IProps> = ({ className, ...props }) => {
-    const [menuOpen, setMenuOpen] = useState<boolean>(false);
+    const { menuOpen, setMenuOpen } = useMenu();
 
     const handleMenuOpenToggle = useCallback(() => {
         setMenuOpen(!menuOpen);
@@ -36,7 +48,9 @@ const Header: React.FC<IProps> = ({ className, ...props }) => {
                 >
                     {!menuOpen ? <MenuIcon /> : <CloseIcon />}
                 </button>
-                <Menu open={menuOpen} />
+                <Menu open={menuOpen}
+                      onClose={handleMenuOpenToggle}
+                />
             </Container>
         </header>
     );
