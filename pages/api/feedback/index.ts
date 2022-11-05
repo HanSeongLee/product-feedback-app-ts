@@ -9,7 +9,12 @@ async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
+    const { category } = req.query;
+
     const feedbackList = await prisma.feedback.findMany({
+        where: {
+            category: category as string,
+        },
         include: {
             _count: {
                 select: {
