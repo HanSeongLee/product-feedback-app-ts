@@ -27,7 +27,9 @@ const Header: React.FC<IProps> = ({ className, ...props }) => {
 
     const handleMenuOpenToggle = useCallback(() => {
         setMenuOpen(!menuOpen);
-    }, [!menuOpen]);
+        window.scrollTo(0, 0);
+        window.document.body.style.overflow = !menuOpen ? 'hidden' : 'auto';
+    }, [menuOpen]);
 
     return (
         <header className={cn(styles.header, className)}
