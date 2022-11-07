@@ -147,4 +147,17 @@
       }
     }
   }
+
+  .signinButton {
+    width: 100%;
+    min-height: 40px;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 19px;
+    background: #3A4374;
+    color: #F2F4FE;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
 }

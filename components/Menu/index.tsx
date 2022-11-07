@@ -5,6 +5,7 @@ import cn from 'classnames';
 import Link from 'next/link';
 import CategorySelectContainer from 'containers/CategorySelectContainer';
 import RoadmapContainer from 'containers/RoadmapContainer';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
     open?: boolean;
@@ -12,6 +13,8 @@ interface IProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Menu: React.FC<IProps> = ({ open, onClose, className, ...props }) => {
+    const { data: session } = useSession();
+
     return (
         <div className={cn(styles.menu, {
             [styles.open]: open,
@@ -42,6 +45,22 @@ const Menu: React.FC<IProps> = ({ open, onClose, className, ...props }) => {
                                           count: styles.count,
                                       }}
                     />
+                </div>
+
+                <div>
+                    {!session ? (
+                        <button className={styles.signinButton}
+                                onClick={() => signIn()}
+                        >
+                            Sign in
+                        </button>
+                    ) : (
+                        <button className={styles.signinButton}
+                                onClick={() => signOut()}
+                        >
+                            Sign out
+                        </button>
+                    )}
                 </div>
             </Container>
         </div>

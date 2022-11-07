@@ -1,0 +1,22 @@
+
+.signIn {
+  width: 100vw;
+  height: 100vh;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .signInButton {
+    min-width: 279px;
+    min-height: 40px;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 19px;
+    background: #3A4374;
+    color: #F2F4FE;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
+}
