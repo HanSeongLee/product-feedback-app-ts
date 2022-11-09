@@ -2,8 +2,9 @@ import { useLayoutEffect } from 'react';
 import create, { UseBoundStore } from 'zustand';
 import createContext from 'zustand/context';
 import { combine } from 'zustand/middleware';
-import { FeedbackType } from 'types/feedback';
+import { FeedbackType, FeedbackWithCommentsType } from 'types/feedback';
 import { RoadmapType } from 'types/roadmap';
+import axios from 'axios';
 
 let store: any;
 
@@ -20,6 +21,7 @@ const getDefaultInitialState = () => ({
     roadmapList: [] as RoadmapType[],
     sortBy: '0',
     menuOpen: false,
+    feedbackDetailList: {} as {[key: string]: FeedbackWithCommentsType},
 });
 
 const zustandContext = createContext<UseStoreState>();
@@ -44,6 +46,22 @@ export const initializeStore = (preloadedState = {}) => {
             setMenuOpen: (open: boolean) => {
                 set({ menuOpen: open, });
             },
+            setFeedbackDetailList: (feedbackDetailList: {}) => {
+                set({ feedbackDetailList, });
+            },
+            loadFeedback: async (id: string) => {
+                try {
+                    const { data } = await axios.get(`/api/feedback/${id}`);
+                    set((state) => ({
+                        feedbackDetailList: {
+                            ...state.feedbackDetailList,
+                            [data?.id]: data,
+                        },
+                    }));
+                } catch (e) {
+                    console.error(e);
+                }
+            }
         }))
     );
 };

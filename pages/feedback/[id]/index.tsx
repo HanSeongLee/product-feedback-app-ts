@@ -3,34 +3,36 @@ import styles from './style.module.scss';
 import Container from 'components/Container';
 import { useRouter } from 'next/router';
 import FeedbackCard from 'components/FeedbackCard';
-import { useEffect, useState } from 'react';
-import { FeedbackWithCommentsType } from 'types/feedback';
-import axios from 'axios';
+import { useEffect } from 'react';
 import CommentCardContainer from 'containers/CommentCardContainer';
 import Navigator from 'components/Navigator';
 import AddCommentFormContainer from 'containers/AddCommentFormContainer';
 import Link from 'next/link';
+import { useStore } from 'lib/store';
+import shallow from 'zustand/shallow';
+
+const useFeedbackDetailList = () => {
+    return useStore(
+        (store) => ({
+            feedbackDetailList: store.feedbackDetailList,
+            loadFeedback: store.loadFeedback,
+        }),
+        shallow
+    );
+};
 
 const Home: NextPage = () => {
     const { query } = useRouter();
     const { id } = query;
-    const [feedback, setFeedback] = useState<FeedbackWithCommentsType | undefined>();
+    const { feedbackDetailList, loadFeedback } = useFeedbackDetailList();
+    const feedback = id && id as string in feedbackDetailList ? feedbackDetailList[id as string] : null;
 
     useEffect(() => {
-        const loadFeedback = async () => {
-            try {
-                const { data } = await axios.get(`/api/feedback/${id}`);
-                setFeedback(data);
-            } catch (e) {
-                console.error(e);
-            }
-        }
-
         if (!id) {
             return;
         }
 
-        loadFeedback();
+        loadFeedback(id as string);
     }, [id]);
 
     return (
