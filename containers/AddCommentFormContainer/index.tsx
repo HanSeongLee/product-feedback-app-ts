@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useStore } from 'lib/store';
 import shallow from 'zustand/shallow';
 import axios from 'axios';
+import { signIn, useSession } from 'next-auth/react';
 
 const useFeedbackDetailList = () => {
     return useStore(
@@ -20,11 +21,17 @@ const AddCommentFormContainer: React.FC = () => {
     const { loadFeedback } = useFeedbackDetailList();
     const router = useRouter();
     const { query: { id } } = router;
+    const { data: session } = useSession();
 
     const onSubmit = useCallback(async (data) => {
         const { comment } = data;
         if (!comment) {
             alert(`The comment can not be empty!`);
+            return ;
+        }
+
+        if (!session) {
+            signIn();
             return ;
         }
 
@@ -40,7 +47,7 @@ const AddCommentFormContainer: React.FC = () => {
         } catch (e) {
             console.error(e);
         }
-    }, [id]);
+    }, [id, session]);
 
     return (
         <div>
