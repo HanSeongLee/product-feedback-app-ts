@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, useCallback, useState } from 'react';
+import React, { HTMLAttributes, useCallback, useEffect } from 'react';
 import styles from './style.module.scss';
 import Container from 'components/Container';
 import MenuIcon from 'public/icons/mobile/icon-hamburger.svg';
@@ -28,7 +28,10 @@ const Header: React.FC<IProps> = ({ className, ...props }) => {
     const handleMenuOpenToggle = useCallback(() => {
         setMenuOpen(!menuOpen);
         window.scrollTo(0, 0);
-        window.document.body.style.overflow = !menuOpen ? 'hidden' : 'auto';
+    }, [menuOpen]);
+
+    useEffect(() => {
+        window.document.body.style.overflow = menuOpen ? 'hidden' : 'auto';
     }, [menuOpen]);
 
     return (
