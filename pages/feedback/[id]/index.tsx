@@ -3,7 +3,7 @@ import styles from './style.module.scss';
 import Container from 'components/Container';
 import { useRouter } from 'next/router';
 import FeedbackCard from 'components/FeedbackCard';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import CommentCardContainer from 'containers/CommentCardContainer';
 import Navigator from 'components/Navigator';
 import AddCommentFormContainer from 'containers/AddCommentFormContainer';
@@ -26,11 +26,13 @@ const Home: NextPage = () => {
     const { id } = query;
     const { feedbackDetailList, loadFeedback } = useFeedbackDetailList();
     const feedback = id && id as string in feedbackDetailList ? feedbackDetailList[id as string] : null;
+    const dataFetchedRef = useRef(false);
 
     useEffect(() => {
-        if (!id) {
+        if (!id || dataFetchedRef.current) {
             return;
         }
+        dataFetchedRef.current = true;
 
         loadFeedback(id as string);
     }, [id]);
