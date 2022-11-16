@@ -14,8 +14,8 @@ model Feedback {
     id          Int         @id @default(autoincrement())
     title       String
     category    String
-    upvotes     Int?        @default(0)
-    status      String?     @default("suggestion")
+    upvotes     Int         @default(0)
+    status      String      @default("suggestion")
     description String
     comments    Comment[]
 }
