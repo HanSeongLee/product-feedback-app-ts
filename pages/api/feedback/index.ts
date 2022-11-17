@@ -3,13 +3,15 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { withSentry } from '@sentry/nextjs';
 import { PrismaClient } from '@prisma/client';
 import { RoadmapType } from 'types/roadmap';
+import { unstable_getServerSession } from 'next-auth';
+import { authOptions } from 'pages/api/auth/[...nextauth]';
 
 const prisma = new PrismaClient();
 
-async function handler(
+const get = async (
     req: NextApiRequest,
     res: NextApiResponse
-) {
+) => {
     const { category, sort_by, order_by } = req.query;
 
     const feedbackList = await prisma.feedback.findMany({
@@ -40,14 +42,15 @@ async function handler(
             status: true,
         },
     });
-    const roadmap: RoadmapType[] = statusCount.map(({ _count, status }) => {
+    const roadmap: RoadmapType[] = statusCount
+        .map(({ _count, status }) => {
         return {
             status,
             count: _count.status,
         }
     });
 
-    res.status(200).json({
+    return res.status(200).json({
         items: feedbackList.map((feedback) => {
             return {
                 ...feedback,
@@ -57,6 +60,45 @@ async function handler(
         }),
         roadmap,
     });
+};
+
+const post = async (
+    req: NextApiRequest,
+    res: NextApiResponse
+) => {
+    const { title, category, description } = req.body;
+    const session = await unstable_getServerSession(req, res, authOptions);
+
+    if (!title || !category || !description) {
+        return res.status(400).json({});
+    }
+
+    if (!session) {
+        return res.status(401).json({});
+    }
+
+    const feedback = await prisma.feedback.create({
+        data: {
+            title,
+            category,
+            description,
+        },
+    });
+
+    return res.status(200).json(feedback);
+}
+
+async function handler(
+    req: NextApiRequest,
+    res: NextApiResponse
+) {
+    if (req.method === 'GET') {
+        return await get(req, res);
+    } else if (req.method === 'POST') {
+        return await post(req, res);
+    }
+
+    return res.status(405).json({});
 }
 
 export default withSentry(handler);
