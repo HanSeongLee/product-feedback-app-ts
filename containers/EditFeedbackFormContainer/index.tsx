@@ -2,12 +2,15 @@ import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import EditFeedbackForm from 'components/EditFeedbackForm';
 import { FeedbackType } from 'types/feedback';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 interface IProps {
     feedback: FeedbackType;
 }
 
 const EditFeedbackFormContainer: React.FC<IProps> = ({ feedback }) => {
+    const router = useRouter();
     const { register, control, handleSubmit, formState: { errors }, reset } = useForm({
         defaultValues: {
             title: feedback.title,
@@ -30,9 +33,15 @@ const EditFeedbackFormContainer: React.FC<IProps> = ({ feedback }) => {
         });
     }, []);
 
-    const onDelete = useCallback(() => {
-        // TODO: Should implement this.
-        alert(feedback.id);
+    const onDelete = useCallback(async () => {
+        const { id } = feedback;
+
+        try {
+            await axios.delete(`/api/feedback/${id}`);
+            router.push(`/`);
+        } catch (e) {
+            console.error(e);
+        }
     }, []);
 
     return (
