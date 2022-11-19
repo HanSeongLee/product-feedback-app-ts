@@ -67,6 +67,37 @@ const get = async (
     });
 };
 
+const patch = async (
+    req: NextApiRequest,
+    res: NextApiResponse
+) => {
+    const { id } = req.query;
+    const { title, category, description, status } = req.body;
+    const session = await unstable_getServerSession(req, res, authOptions);
+
+    if (!title || !category || !description || !status) {
+        return res.status(400).json({});
+    }
+
+    if (!session) {
+        return res.status(401).json({});
+    }
+
+    const feedback = await prisma.feedback.update({
+        where: {
+            id: Number(id),
+        },
+        data: {
+            title,
+            category,
+            description,
+            status,
+        },
+    });
+
+    return res.status(200).json(feedback);
+};
+
 const _delete = async (
     req: NextApiRequest,
     res: NextApiResponse
@@ -130,7 +161,7 @@ const _delete = async (
         commentCount: feedback?._count.comments,
         _count: undefined,
     });
-}
+};
 
 async function handler(
     req: NextApiRequest,
@@ -138,6 +169,8 @@ async function handler(
 ) {
     if (req.method === 'GET') {
         return await get(req, res);
+    } else if (req.method === 'PATCH') {
+        return await patch(req, res);
     } else if (req.method === 'DELETE') {
         return await _delete(req, res);
     }

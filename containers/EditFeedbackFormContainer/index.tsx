@@ -19,9 +19,21 @@ const EditFeedbackFormContainer: React.FC<IProps> = ({ feedback }) => {
             description: feedback.description,
         }
     });
-    const onSubmit = useCallback((data) => {
-        // TODO: Should implement this.
-        alert(JSON.stringify(data));
+    const onSubmit = useCallback(async (data) => {
+        const { id } = feedback;
+        const { title, category, status, description } = data;
+
+        try {
+            await axios.patch(`/api/feedback/${id}`, {
+                title,
+                category,
+                status,
+                description,
+            });
+            router.replace(`/feedback/${id}`);
+        } catch (e) {
+            console.error(e);
+        }
     }, []);
 
     const onReset = useCallback(() => {
@@ -38,7 +50,7 @@ const EditFeedbackFormContainer: React.FC<IProps> = ({ feedback }) => {
 
         try {
             await axios.delete(`/api/feedback/${id}`);
-            router.push(`/`);
+            router.replace(`/`);
         } catch (e) {
             console.error(e);
         }
