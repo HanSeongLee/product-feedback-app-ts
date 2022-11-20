@@ -1,0 +1,44 @@
+.emptyFeedbackBox {
+  background: #FFFFFF;
+  border-radius: 10px;
+  text-align: center;
+  padding: 76px 24px 76px 25px;
+
+  .illustration {
+    width: 102px;
+    height: 108px;
+    margin-bottom: 39px;
+  }
+
+  .title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.25px;
+    color: #3A4374;
+    margin-bottom: 14px;
+  }
+
+  .description {
+    font-size: 13px;
+    line-height: 19px;
+    color: #647196;
+    margin-bottom: 24px;
+  }
+
+  .addFeedbackButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 134px;
+    min-height: 40px;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 19px;
+    color: #F2F4FE;
+    background: #AD1FEA;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
+}

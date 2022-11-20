@@ -4,6 +4,7 @@ import Link from 'next/link';
 import axios from 'axios'
 import { useStore } from 'lib/store';
 import shallow from 'zustand/shallow';
+import EmptyFeedbackBox from 'components/EmptyFeedbackBox';
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
 
@@ -83,6 +84,9 @@ const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
                     </a>
                 </Link>
             ))}
+            {feedbackList?.length === 0 && (
+                <EmptyFeedbackBox />
+            )}
         </div>
     );
 };
