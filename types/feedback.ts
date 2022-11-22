@@ -5,6 +5,12 @@ export type RoadmapType =
     | 'In-Progress'
     | 'Live';
 
+export const StatusColors: {[key: string]: string} = {
+    planned: '#F49F85',
+    'in-progress': '#AD1FEA',
+    live: '#62BCFA',
+};
+
 export type FeedbackType = {
     id: number;
     title: string;

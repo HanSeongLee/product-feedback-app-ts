@@ -1,25 +1,34 @@
-import React, { HTMLAttributes, MouseEventHandler } from 'react';
+import React, { CSSProperties, HTMLAttributes, MouseEventHandler } from 'react';
 import styles from './style.module.scss';
 import cn from 'classnames';
-import { FeedbackType } from 'types/feedback';
+import { FeedbackType, StatusColors } from 'types/feedback';
 import ArrowUpIcon from 'public/icons/icon-arrow-up.svg';
 import CommentsIcon from 'public/icons/icon-comments.svg';
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
     feedback: FeedbackType;
+    displayStatus?: boolean;
     onUpvoteClick?: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
-const FeedbackCard: React.FC<IProps> = ({ feedback, onUpvoteClick, className, ...props }) => {
+const FeedbackCard: React.FC<IProps> = ({ feedback, displayStatus, onUpvoteClick, className, ...props }) => {
     const {
         title, description, category, upvotes,
-        commentCount
+        status, commentCount
     } = feedback;
 
     return (
-        <div className={cn(styles.feedbackCard, className)}
+        <div className={cn(styles.feedbackCard, {
+            [styles.displayStatus]: displayStatus,
+        }, className)}
+             style={{
+                 '--status-color': StatusColors[status],
+             } as CSSProperties}
              {...props}
         >
+            <div className={styles.status}>
+                {status.replace('-', ' ')}
+            </div>
             <div className={styles.title}>
                 {title}
             </div>
@@ -50,6 +59,10 @@ const FeedbackCard: React.FC<IProps> = ({ feedback, onUpvoteClick, className, ..
             </div>
         </div>
     );
+};
+
+FeedbackCard.defaultProps = {
+    displayStatus: false,
 };
 
 export default FeedbackCard;
