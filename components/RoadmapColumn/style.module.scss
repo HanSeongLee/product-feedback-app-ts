@@ -1,0 +1,25 @@
+
+.roadmapColumn {
+  .title {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.25px;
+    color: #3A4374;
+    margin-bottom: 4px;
+    text-transform: capitalize;
+  }
+
+  .description {
+    font-size: 13px;
+    line-height: 19px;
+    color: #647196;
+    margin-bottom: 24px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 16px;
+  }
+}
