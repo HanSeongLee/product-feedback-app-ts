@@ -11,6 +11,12 @@ export const StatusColors: {[key: string]: string} = {
     live: '#62BCFA',
 };
 
+export const StatusDescriptionList: {[key: string]: string} = {
+    planned: 'Ideas prioritized for research',
+    'in-progress': 'Currently being developed',
+    live: 'Released features',
+};
+
 export type FeedbackType = {
     id: number;
     title: string;

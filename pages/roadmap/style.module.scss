@@ -1,0 +1,33 @@
+
+.main {
+  padding-bottom: 88px;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-top: 24px;
+  }
+
+  .navigatorWrapper {
+    min-height: 100px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background: #373F68;
+  }
+
+  .addFeedbackButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 134px;
+    min-height: 40px;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 19px;
+    color: #F2F4FE;
+    background: #AD1FEA;
+    border-radius: 10px;
+  }
+}
