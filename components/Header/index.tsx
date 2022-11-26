@@ -34,6 +34,10 @@ const Header: React.FC<IProps> = ({ className, ...props }) => {
         window.document.body.style.overflow = menuOpen ? 'hidden' : 'auto';
     }, [menuOpen]);
 
+    useEffect(() => {
+        return () => setMenuOpen(false);
+    }, []);
+
     return (
         <header className={cn(styles.header, className)}
                 {...props}
