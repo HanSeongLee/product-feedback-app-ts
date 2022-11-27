@@ -1,0 +1,29 @@
+
+.replayForm {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 16px;
+
+  .textarea {
+    textarea {
+      min-height: 80px;
+    }
+  }
+
+  .footer {
+    display: flex;
+    justify-content: flex-end;
+
+    .postReplyButton {
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 19px;
+      color: #F2F4FE;
+      background: #AD1FEA;
+      border-radius: 10px;
+      border: none;
+      padding: 10.5px 16px;
+      cursor: pointer;
+    }
+  }
+}
