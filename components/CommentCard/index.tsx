@@ -1,17 +1,23 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, useCallback, useState } from 'react';
 import styles from './style.module.scss';
 import cn from 'classnames';
 import { CommentType, ReplyType } from 'types/feedback';
+import ReplyFormContainer from 'containers/ReplyFormContainer';
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
+    parentId?: number;
     comment: CommentType | ReplyType;
-    onReply: (event: React.MouseEvent<HTMLButtonElement>, id: number) => void;
 }
 
-const CommentCard: React.FC<IProps> = ({ comment, onReply, className, ...props }) => {
+const CommentCard: React.FC<IProps> = ({ parentId, comment, className, ...props }) => {
     // @ts-ignore
     const { id, content, user, replyingTo, replies } = comment;
     const { image, username, name } = user;
+    const [openReply, setOpenReply] = useState(false);
+
+    const toggleReply = useCallback(() => {
+        setOpenReply(state => !state);
+    }, []);
 
     return (
         <div className={cn(styles.commentCard, className)}
@@ -32,7 +38,7 @@ const CommentCard: React.FC<IProps> = ({ comment, onReply, className, ...props }
                 </div>
                 <button className={styles.replyButton}
                         type={'button'}
-                        onClick={(e) => onReply(e, id)}
+                        onClick={toggleReply}
                 >
                     Reply
                 </button>
@@ -47,12 +53,18 @@ const CommentCard: React.FC<IProps> = ({ comment, onReply, className, ...props }
                 )}
                 {content}
             </p>
+            {openReply && (
+                <ReplyFormContainer commentId={parentId ? parentId : id}
+                                    replyingTo={username}
+                                    onSubmitAfter={toggleReply}
+                />
+            )}
             {replies?.length > 0 && (
                 <ul className={styles.replyContainer}>
                     {replies.map((reply, index) => (
                         <li key={index}>
-                            <CommentCard comment={reply}
-                                         onReply={(e) => onReply(e, reply.id)}
+                            <CommentCard parentId={id}
+                                         comment={reply}
                             />
                         </li>
                     ))}
