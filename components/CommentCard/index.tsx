@@ -30,10 +30,10 @@ const CommentCard: React.FC<IProps> = ({ parentId, comment, className, ...props 
                 />
                 <div className={styles.userInfoContainer}>
                     <div className={styles.name}>
-                        {username}
+                        {name}
                     </div>
                     <div className={styles.username}>
-                        @{name}
+                        @{username}
                     </div>
                 </div>
                 <button className={styles.replyButton}
