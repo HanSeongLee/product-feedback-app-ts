@@ -62,6 +62,8 @@ const get = async (
 
     return res.status(200).json({
         ...feedback,
+        upvotes: feedback?.upvoteCount,
+        upvoteCount: undefined,
         commentCount: feedback?._count.comments,
         _count: undefined,
     });

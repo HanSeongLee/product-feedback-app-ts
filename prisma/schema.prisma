@@ -11,13 +11,14 @@ datasource db {
 }
 
 model Feedback {
-    id          Int         @id @default(autoincrement())
+    id          Int                 @id @default(autoincrement())
     title       String
     category    String
-    upvotes     Int         @default(0)
-    status      String      @default("suggestion")
+    upvoteCount Int                 @default(0)
+    status      String              @default("suggestion")
     description String
     comments    Comment[]
+    upvotes     FeedbackUpvote[]    @relation("VotedFeedback")
 }
 
 model Account {
@@ -48,16 +49,17 @@ model Session {
 }
 
 model User {
-  id            String      @id @default(cuid())
-  name          String?
-  email         String?     @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  username      String?     @unique
-  comments      Comment[]   @relation("UserComments")
-  replies       Comment[]   @relation("UserReplies")
+  id                String              @id @default(cuid())
+  name              String?
+  email             String?             @unique
+  emailVerified     DateTime?
+  image             String?
+  accounts          Account[]
+  sessions          Session[]
+  username          String?             @unique
+  comments          Comment[]           @relation("UserComments")
+  replies           Comment[]           @relation("UserReplies")
+  feedbackUpvotes   FeedbackUpvote[]    @relation("FeedbackVoteBy")
 }
 
 model VerificationToken {
@@ -80,4 +82,14 @@ model Comment {
     feedback     Feedback    @relation(fields: [feedbackId], references: [id])
     userId       String
     user         User        @relation("UserComments", fields: [userId], references: [id])
+}
+
+model FeedbackUpvote {
+    id              Int         @id @default(autoincrement())
+    userId          String
+    voteBy          User        @relation("FeedbackVoteBy", fields: [userId], references: [id])
+    feedbackId      Int?
+    feedback        Feedback?   @relation("VotedFeedback", fields: [feedbackId], references: [id])
+
+    @@unique([userId, feedbackId])
 }

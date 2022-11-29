@@ -20,7 +20,7 @@ const get = async (
         },
         orderBy: sort_by === 'upvotes' && order_by ? [
             {
-                [sort_by as string]: order_by as string,
+                'upvoteCount': order_by as string,
             },
         ] : sort_by === 'commentCount' && order_by ? {
             comments: {
@@ -54,6 +54,8 @@ const get = async (
         items: feedbackList.map((feedback) => {
             return {
                 ...feedback,
+                upvotes: feedback.upvoteCount,
+                upvoteCount: undefined,
                 commentCount: feedback._count.comments,
                 _count: undefined,
             };
