@@ -94,6 +94,15 @@
       border: none;
       cursor: pointer;
 
+      &.active {
+        color: #FFFFFF;
+        background: #4661E6;
+
+        .icon path {
+          stroke: #FFFFFF;
+        }
+      }
+
       .icon {
         width: 8px;
       }

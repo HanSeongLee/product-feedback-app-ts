@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import React from 'react';
 import styles from './style.module.scss';
 import Container from 'components/Container';
 import Navigator from 'components/Navigator';
@@ -11,6 +12,7 @@ import RoadmapColumn from 'components/RoadmapColumn';
 import { useStore } from 'lib/store';
 import shallow from 'zustand/shallow';
 import axios from 'axios';
+import { signIn, useSession } from 'next-auth/react';
 
 const useFeedback = () => {
     return useStore(
@@ -27,17 +29,9 @@ const useFeedback = () => {
 };
 
 const RoadmapPage: NextPage = () => {
-    const feedbackItem: FeedbackType = {
-        "id": 9,
-        "title": "One-click portfolio generation",
-        "category": "feature",
-        "upvotes": 62,
-        "status": "in-progress",
-        "description": "Add ability to create professional looking portfolio from profile.",
-        "commentCount": 1
-    };
     const [tabSelected, setTabSelected] = useState(0);
     const { feedbackList, setFeedbackList, roadmapList, setRoadmapList } = useFeedback();
+    const { data: session } = useSession();
 
     const onTabChange = useCallback((index: number) => {
         setTabSelected(index);
@@ -56,17 +50,39 @@ const RoadmapPage: NextPage = () => {
         });
     }, [filteredRoadmap]);
 
-    useEffect(() => {
-        const loadFeedbackList = async () => {
-            try {
-                const { data } = await axios.get(`/api/feedback`);
-                setFeedbackList(data?.items);
-                setRoadmapList(data?.roadmap);
-            } catch (e) {
-                console.error(e);
-            }
-        };
+    const loadFeedbackList = async () => {
+        try {
+            const { data } = await axios.get(`/api/feedback`);
+            setFeedbackList(data?.items);
+            setRoadmapList(data?.roadmap);
+        } catch (e) {
+            console.error(e);
+        }
+    };
 
+    const onUpvoteClick = useCallback(async (event: React.MouseEvent, feedback: FeedbackType) => {
+        event.preventDefault();
+        const { id, upvoted } = feedback;
+
+        if (!session) {
+            signIn();
+            return ;
+        }
+
+        try {
+            if (!upvoted) {
+                await axios.post(`/api/feedback/${id}/upvote`);
+            } else {
+                await axios.delete(`/api/feedback/${id}/upvote`);
+            }
+
+            await loadFeedbackList();
+        } catch (e) {
+            console.error(e);
+        }
+    }, [session]);
+
+    useEffect(() => {
         loadFeedbackList();
     }, []);
 
@@ -105,6 +121,7 @@ const RoadmapPage: NextPage = () => {
                                             <a key={index}>
                                                 <FeedbackCard feedback={item}
                                                               displayStatus
+                                                              onUpvoteClick={onUpvoteClick}
                                                 />
                                             </a>
                                         </Link>

@@ -25,6 +25,7 @@ export type FeedbackType = {
     status: string;
     description: string;
     commentCount: number;
+    upvoted?: boolean;
 };
 
 export type FeedbackWithCommentsType = FeedbackType & {

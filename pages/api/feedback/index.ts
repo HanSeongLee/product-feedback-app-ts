@@ -14,6 +14,17 @@ const get = async (
 ) => {
     const { category, sort_by, order_by } = req.query;
 
+    const session = await unstable_getServerSession(req, res, authOptions);
+
+    const upvotes = session ? {
+        where: {
+            userId: session.user.id,
+        },
+        select: {
+            id: true,
+        },
+    } : false;
+
     const feedbackList = await prisma.feedback.findMany({
         where: {
             category: category as string,
@@ -28,6 +39,7 @@ const get = async (
             },
         } as any : undefined,
         include: {
+            upvotes,
             _count: {
                 select: {
                     comments: true,
@@ -54,6 +66,7 @@ const get = async (
         items: feedbackList.map((feedback) => {
             return {
                 ...feedback,
+                upvoted: feedback?.upvotes?.length > 0,
                 upvotes: feedback.upvoteCount,
                 upvoteCount: undefined,
                 commentCount: feedback._count.comments,

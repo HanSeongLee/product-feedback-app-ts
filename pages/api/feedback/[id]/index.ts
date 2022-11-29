@@ -13,11 +13,23 @@ const get = async (
 ) => {
     const { id } = req.query;
 
+    const session = await unstable_getServerSession(req, res, authOptions);
+
+    const upvotes = session ? {
+        where: {
+            userId: session.user.id,
+        },
+        select: {
+            id: true,
+        },
+    } : false;
+
     const feedback = await prisma.feedback.findUnique({
         where: {
             id: Number(id as string),
         },
         include: {
+            upvotes,
             comments: {
                 select: {
                     id: true,
@@ -62,6 +74,7 @@ const get = async (
 
     return res.status(200).json({
         ...feedback,
+        upvoted: feedback?.upvotes && feedback.upvotes.length > 0,
         upvotes: feedback?.upvoteCount,
         upvoteCount: undefined,
         commentCount: feedback?._count.comments,

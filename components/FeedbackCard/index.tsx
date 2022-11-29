@@ -1,4 +1,4 @@
-import React, { CSSProperties, HTMLAttributes, MouseEventHandler } from 'react';
+import React, { CSSProperties, HTMLAttributes } from 'react';
 import styles from './style.module.scss';
 import cn from 'classnames';
 import { FeedbackType, StatusColors } from 'types/feedback';
@@ -8,13 +8,13 @@ import CommentsIcon from 'public/icons/icon-comments.svg';
 interface IProps extends HTMLAttributes<HTMLDivElement> {
     feedback: FeedbackType;
     displayStatus?: boolean;
-    onUpvoteClick?: MouseEventHandler<HTMLButtonElement> | undefined;
+    onUpvoteClick?: (event: React.MouseEvent, feedback: FeedbackType) => void;
 }
 
 const FeedbackCard: React.FC<IProps> = ({ feedback, displayStatus, onUpvoteClick, className, ...props }) => {
     const {
-        title, description, category, upvotes,
-        status, commentCount
+        title, description, category, upvoted,
+        upvotes, status, commentCount
     } = feedback;
 
     return (
@@ -41,9 +41,15 @@ const FeedbackCard: React.FC<IProps> = ({ feedback, displayStatus, onUpvoteClick
                 </span>
             </div>
             <div className={styles.footer}>
-                <button className={styles.upvoteButton}
+                <button className={cn(styles.upvoteButton, {
+                    [styles.active]: upvoted,
+                })}
                         type={'button'}
-                        onClick={onUpvoteClick}
+                        onClick={(e) => {
+                            if (onUpvoteClick) {
+                                onUpvoteClick(e, feedback);
+                            }
+                        }}
                 >
                     <ArrowUpIcon className={styles.icon} />
                     {upvotes}
