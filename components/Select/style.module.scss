@@ -1,3 +1,4 @@
+@import "styles/utils";
 
 .select {
   position: relative;
@@ -29,6 +30,11 @@
   .label, .value {
     font-size: 13px;
     line-height: 19px;
+
+    @include media(">tablet") {
+      font-size: 14px;
+      line-height: 20px;
+    }
   }
 
   .value {

@@ -1,17 +1,50 @@
+@import "styles/utils";
 
 .suggestionBar {
-  min-height: 56px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   color: #F2F4FE;
   background: #373F68;
 
+  @include media(">tablet") {
+    background: transparent;
+  }
+
   .container {
     width: 100%;
+    min-height: 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @include media(">tablet") {
+      min-height: 72px;
+      background: #373F68;
+      border-radius: 10px;
+      padding: 0 12px 0 24px;
+    }
+  }
+
+  .leftSide {
+    display: flex;
+    align-items: center;
+    grid-gap: 38px;
+  }
+
+  .title {
+    display: none;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: -0.25px;
+    color: #FFFFFF;
+
+    @include media(">tablet") {
+      display: flex;
+      align-items: center;
+      grid-gap: 16px;
+    }
   }
 
   .select {
@@ -43,5 +76,12 @@
     background: #AD1FEA;
     border-radius: 10px;
     cursor: pointer;
+
+    @include media(">tablet") {
+      min-width: 158px;
+      min-height: 44px;
+      font-size: 14px;
+      line-height: 20px;
+    }
   }
 }
