@@ -88,8 +88,7 @@ const RoadmapPage: NextPage = () => {
         <>
             <main className={styles.main}>
                 <Container className={styles.navigatorWrapper}>
-                    <Navigator goBackUrl={'/'}
-                               title={'Roadmap'}
+                    <Navigator title={'Roadmap'}
                                theme={'dark'}
                     >
                         <Link href={`/feedback/add`}>

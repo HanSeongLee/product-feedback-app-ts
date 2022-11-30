@@ -34,7 +34,7 @@ const FeedbackEditPage: NextPage = () => {
         <>
             <main className={styles.main}>
                 <Container className={styles.container}>
-                    <Navigator goBackUrl={'/'} />
+                    <Navigator />
 
                     {feedback && (
                         <EditFeedbackFormContainer feedback={feedback} />

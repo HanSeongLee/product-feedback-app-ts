@@ -11,7 +11,7 @@ const FeedbackAddPage: NextPage = () => {
         <>
             <main className={styles.main}>
                 <Container className={styles.container}>
-                    <Navigator goBackUrl={'/'} />
+                    <Navigator />
 
                     <NewFeedbackFormContainer />
                 </Container>

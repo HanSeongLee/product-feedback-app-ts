@@ -1,16 +1,21 @@
-import React, { HTMLAttributes } from 'react';
+import React, { HTMLAttributes, useCallback } from 'react';
 import styles from './style.module.scss';
 import cn from 'classnames';
 import ArrowLeftIcon from 'public/icons/icon-arrow-left.svg';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
-    goBackUrl: string;
     title?: string;
     theme?: 'light' | 'dark';
 }
 
-const Navigator: React.FC<IProps> = ({ goBackUrl, title, theme, className, children, ...props }) => {
+const Navigator: React.FC<IProps> = ({ title, theme, className, children, ...props }) => {
+    const router = useRouter();
+
+    const goBack = useCallback(() => {
+        router.back();
+    }, []);
+
     return (
         <div className={cn(styles.navigator, {
             [styles.dark]: theme === 'dark',
@@ -18,11 +23,12 @@ const Navigator: React.FC<IProps> = ({ goBackUrl, title, theme, className, child
              {...props}
         >
             <div className={styles.leftSide}>
-                <Link href={goBackUrl}>
-                    <a className={styles.goBackButton}>
-                        <ArrowLeftIcon className={styles.icon} /> Go Back
-                    </a>
-                </Link>
+                <button className={styles.goBackButton}
+                        type={'button'}
+                        onClick={goBack}
+                >
+                    <ArrowLeftIcon className={styles.icon} /> Go Back
+                </button>
                 {title && (
                     <div className={styles.title}>
                         {title}

@@ -68,7 +68,7 @@ const Home: NextPage = () => {
         <>
             <main className={styles.main}>
                 <Container className={styles.container}>
-                    <Navigator goBackUrl={'/'}>
+                    <Navigator >
                         <Link href={`/feedback/${id}/edit`}>
                             <a className={styles.editFeedbackButton}
                                type={'button'}
