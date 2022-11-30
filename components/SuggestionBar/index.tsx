@@ -12,19 +12,26 @@ const SuggestionBar: React.FC = () => {
 
     const handleSortBy = useCallback((newValue: string) => {
         if (newValue in sortParamMap) {
+            const query = {
+                ...router.query,
+                sort: sortParamMap[newValue],
+            };
+
+            if (newValue === SORT_BY_DEFAULT_VALUE) {
+                // @ts-ignore
+                delete query.sort;
+            }
+
             router.push(
                 {
                     pathname: '/',
-                    query: {
-                        sort: newValue === SORT_BY_DEFAULT_VALUE ?
-                            undefined : sortParamMap[newValue],
-                    }
+                    query,
                 },
                 undefined,
                 { shallow: true }
             );
         }
-    }, []);
+    }, [router.query]);
 
     useEffect(() => {
         if (!router.query?.sort) {

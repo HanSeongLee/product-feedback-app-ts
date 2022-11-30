@@ -16,7 +16,6 @@ interface IProps extends HTMLAttributes<HTMLDivElement> {
 const useFeedback = () => {
     return useStore(
         (store) => ({
-            category: store.category,
             feedbackList: store.feedbackList,
             setFeedbackList: store.setFeedbackList,
             setRoadmapList: store.setRoadmapList,
@@ -27,7 +26,7 @@ const useFeedback = () => {
 
 const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
     const router = useRouter();
-    const { category, feedbackList, setFeedbackList, setRoadmapList } = useFeedback();
+    const { feedbackList, setFeedbackList, setRoadmapList } = useFeedback();
     const { data: session } = useSession();
 
     const makeSortQueries = () => {
@@ -55,7 +54,7 @@ const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
         try {
             const { data } = await axios.get(`/api/feedback`, {
                 params: {
-                    category: category === 'all' ? undefined : category,
+                    category: router.query.category,
                     ...makeSortQueries(),
                 },
             });
@@ -86,11 +85,11 @@ const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
         } catch (e) {
             console.error(e);
         }
-    }, [session, router.query.sort]);
+    }, [session, router.query.category, router.query.sort]);
 
     useEffect(() => {
         loadFeedbackList();
-    }, [category, router.query.sort]);
+    }, [router.query.category, router.query.sort]);
 
     return (
         <div {...props}>

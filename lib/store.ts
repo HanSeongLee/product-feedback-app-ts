@@ -16,7 +16,6 @@ type UseStoreState = typeof initializeStore extends (
     : never;
 
 const getDefaultInitialState = () => ({
-    category: 'all',
     feedbackList: [] as FeedbackType[],
     roadmapList: [] as RoadmapType[],
     menuOpen: false,
@@ -30,9 +29,6 @@ export const useStore = zustandContext.useStore;
 export const initializeStore = (preloadedState = {}) => {
     return create(
         combine({ ...getDefaultInitialState(), ...preloadedState }, (set, get) => ({
-            setCategory: (category: string) => {
-                set({ category, });
-            },
             setFeedbackList: (feedbackList: FeedbackType[]) => {
                 set({ feedbackList, });
             },

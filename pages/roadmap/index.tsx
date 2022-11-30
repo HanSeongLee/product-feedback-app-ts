@@ -17,8 +17,6 @@ import { signIn, useSession } from 'next-auth/react';
 const useFeedback = () => {
     return useStore(
         (store) => ({
-            category: store.category,
-            sortBy: store.sortBy,
             feedbackList: store.feedbackList,
             setFeedbackList: store.setFeedbackList,
             roadmapList: store.roadmapList,

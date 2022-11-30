@@ -31,3 +31,5 @@ export const sortParamMap: {[key: string]: string} = {
     '2': 'commentCount|desc',
     '3': 'commentCount|asc',
 };
+
+export const CATEGORY_DEFAULT_VALUE = 'all';

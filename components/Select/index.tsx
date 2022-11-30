@@ -28,7 +28,7 @@ const Select: React.FC<IProps> = ({
             onChange(value);
         }
         setOpen(false);
-    }, []);
+    }, [onChange]);
 
     return (
         <div className={cn(styles.select, className, {
