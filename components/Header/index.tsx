@@ -43,7 +43,7 @@ const Header: React.FC<IProps> = ({ className, ...props }) => {
                 {...props}
         >
             <Container className={styles.container}>
-                <div>
+                <div className={styles.titleBox}>
                     <h1 className={styles.title}>
                         Frontend Mentor
                     </h1>
