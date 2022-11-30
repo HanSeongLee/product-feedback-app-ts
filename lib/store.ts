@@ -19,7 +19,6 @@ const getDefaultInitialState = () => ({
     category: 'all',
     feedbackList: [] as FeedbackType[],
     roadmapList: [] as RoadmapType[],
-    sortBy: '0',
     menuOpen: false,
     feedbackDetailList: {} as {[key: string]: FeedbackWithCommentsType},
 });
@@ -39,9 +38,6 @@ export const initializeStore = (preloadedState = {}) => {
             },
             setRoadmapList: (roadmapList: RoadmapType[]) => {
                 set({ roadmapList, });
-            },
-            setSortBy: (sortBy: string) => {
-                set({ sortBy, });
             },
             setMenuOpen: (open: boolean) => {
                 set({ menuOpen: open, });

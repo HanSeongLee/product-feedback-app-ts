@@ -7,6 +7,7 @@ import shallow from 'zustand/shallow';
 import EmptyFeedbackBox from 'components/EmptyFeedbackBox';
 import { signIn, useSession } from 'next-auth/react';
 import { FeedbackType } from 'types/feedback';
+import { useRouter } from 'next/router';
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
 
@@ -16,7 +17,6 @@ const useFeedback = () => {
     return useStore(
         (store) => ({
             category: store.category,
-            sortBy: store.sortBy,
             feedbackList: store.feedbackList,
             setFeedbackList: store.setFeedbackList,
             setRoadmapList: store.setRoadmapList,
@@ -26,37 +26,29 @@ const useFeedback = () => {
 };
 
 const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
-    const { category, sortBy, feedbackList, setFeedbackList, setRoadmapList } = useFeedback();
+    const router = useRouter();
+    const { category, feedbackList, setFeedbackList, setRoadmapList } = useFeedback();
     const { data: session } = useSession();
 
     const makeSortQueries = () => {
-        switch (sortBy) {
-            case '0': {
-                return {
-                    sort_by: 'upvotes',
-                    order_by: 'desc',
-                };
-            }
-            case '1': {
-                return {
-                    sort_by: 'upvotes',
-                    order_by: 'asc',
-                };
-            }
-            case '2': {
-                return {
-                    sort_by: 'commentCount',
-                    order_by: 'desc',
-                };
-            }
-            case '3': {
-                return {
-                    sort_by: 'commentCount',
-                    order_by: 'asc',
-                };
-            }
+        const { sort } = router.query;
+
+        if (!sort) {
+            return {
+                sort_by: 'upvotes',
+                order_by: 'desc',
+            };
         }
-        return {};
+
+        const sortParam = String(sort).split('|');
+        return sortParam.length === 0 ? {} :
+            sortParam.length === 1 ? {
+                sort_by: sortParam[0],
+                order_by: 'asc',
+            } : {
+                sort_by: sortParam[0],
+                order_by: sortParam[1],
+            };
     };
 
     const loadFeedbackList = async () => {
@@ -94,11 +86,11 @@ const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
         } catch (e) {
             console.error(e);
         }
-    }, [session]);
+    }, [session, router.query.sort]);
 
     useEffect(() => {
         loadFeedbackList();
-    }, [category, sortBy]);
+    }, [category, router.query.sort]);
 
     return (
         <div {...props}>

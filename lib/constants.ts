@@ -23,3 +23,11 @@ export const roadmapList:{color: string, name: RoadmapType}[] = [
         name: 'Live',
     },
 ];
+
+export const SORT_BY_DEFAULT_VALUE = '0';
+export const sortParamMap: {[key: string]: string} = {
+    '0': '',
+    '1': 'upvotes|asc',
+    '2': 'commentCount|desc',
+    '3': 'commentCount|asc',
+};

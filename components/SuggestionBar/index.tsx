@@ -1,27 +1,44 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styles from './style.module.scss';
 import Select from 'components/Select';
 import Container from 'components/Container';
 import Link from 'next/link';
-import { useStore } from 'lib/store';
-import shallow from 'zustand/shallow';
-
-const useSortBy = () => {
-    return useStore(
-        (store) => ({
-            sortBy: store.sortBy,
-            setSortBy: store.setSortBy,
-        }),
-        shallow
-    );
-};
+import { useRouter } from 'next/router';
+import { SORT_BY_DEFAULT_VALUE, sortParamMap } from 'lib/constants';
 
 const SuggestionBar: React.FC = () => {
-    const { sortBy, setSortBy } = useSortBy();
+    const router = useRouter();
+    const [sortBy, setSortBy] = useState(SORT_BY_DEFAULT_VALUE);
 
     const handleSortBy = useCallback((newValue: string) => {
-        setSortBy(newValue);
+        if (newValue in sortParamMap) {
+            router.push(
+                {
+                    pathname: '/',
+                    query: {
+                        sort: newValue === SORT_BY_DEFAULT_VALUE ?
+                            undefined : sortParamMap[newValue],
+                    }
+                },
+                undefined,
+                { shallow: true }
+            );
+        }
     }, []);
+
+    useEffect(() => {
+        if (!router.query?.sort) {
+            setSortBy(SORT_BY_DEFAULT_VALUE);
+            return ;
+        }
+
+        const sortBy = Object.keys(sortParamMap).find(key => sortParamMap[key] === router.query.sort);
+        if (!sortBy) {
+            return;
+        }
+
+        setSortBy(sortBy);
+    }, [router.query.sort]);
 
     return (
         <div className={styles.suggestionBar}>
