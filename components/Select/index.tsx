@@ -39,19 +39,22 @@ const Select: React.FC<IProps> = ({
             <div className={styles.overlay}
                  onClick={handleOpenToggle}
             ></div>
-            <div className={cn(styles.value, valueClassName)}
-                 onClick={handleOpenToggle}
-            >
-                {label ? (
-                    <span>
-                        {label} : <strong>{options.find(({value: _value}) => _value === value)?.label}</strong>
-                    </span>
-                ) : (
-                    <>
-                        {options.find(({value: _value}) => _value === value)?.label}
-                    </>
-                )}&nbsp;
-                <ArrowDownIcon className={styles.arrowIcon} />
+            <div className={styles.valueWrapper}>
+                {label && (<span className={styles.label}>{label} :&nbsp;</span>)}
+                <div className={cn(styles.value, valueClassName)}
+                     onClick={handleOpenToggle}
+                >
+                    {label ? (
+                        <strong>
+                            {options.find(({ value: _value }) => _value === value)?.label}
+                        </strong>
+                    ) : (
+                        <>
+                            {options.find(({ value: _value }) => _value === value)?.label}
+                        </>
+                    )}&nbsp;
+                    <ArrowDownIcon className={styles.arrowIcon} />
+                </div>
             </div>
             <div className={styles.listWrapper}>
                 <ul className={styles.list}>

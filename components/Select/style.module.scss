@@ -22,13 +22,22 @@
     }
   }
 
+  .valueWrapper {
+    display: flex;
+  }
+
+  .label, .value {
+    font-size: 13px;
+    line-height: 19px;
+  }
+
   .value {
+    flex: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 13px;
-    line-height: 19px;
     padding: 14px 16px 15px 16px;
+    cursor: pointer;
 
     .arrowIcon {
       margin-left: 4px;
@@ -66,6 +75,7 @@
         line-height: 23px;
         color: #647196;
         padding: 12px 24px;
+        cursor: pointer;
 
         &:not(:first-child)::before {
           position: absolute;
