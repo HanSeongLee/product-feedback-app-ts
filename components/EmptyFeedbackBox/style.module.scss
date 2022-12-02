@@ -1,13 +1,29 @@
+@import "styles/utils";
+
 .emptyFeedbackBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: #FFFFFF;
   border-radius: 10px;
   text-align: center;
   padding: 76px 24px 76px 25px;
 
+  @include media(">tablet") {
+    min-height: 600px;
+  }
+
   .illustration {
     width: 102px;
     height: 108px;
     margin-bottom: 39px;
+
+    @include media(">tablet") {
+      width: 129.64px;
+      height: 136.74px;
+      margin-bottom: 54px;
+    }
   }
 
   .title {
@@ -17,13 +33,27 @@
     letter-spacing: -0.25px;
     color: #3A4374;
     margin-bottom: 14px;
+
+    @include media(">tablet") {
+      font-size: 24px;
+      line-height: 35px;
+      letter-spacing: -0.33px;
+      margin-bottom: 16px;
+    }
   }
 
   .description {
+    max-width: 410px;
     font-size: 13px;
     line-height: 19px;
     color: #647196;
     margin-bottom: 24px;
+
+    @include media(">tablet") {
+      font-size: 16px;
+      line-height: 23px;
+      margin-bottom: 48px;
+    }
   }
 
   .addFeedbackButton {
@@ -40,5 +70,12 @@
     border-radius: 10px;
     border: none;
     cursor: pointer;
+
+    @include media(">tablet") {
+      min-width: 158px;
+      min-height: 44px;
+      font-size: 14px;
+      line-height: 20px;
+    }
   }
 }
