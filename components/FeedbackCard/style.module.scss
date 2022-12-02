@@ -1,10 +1,76 @@
+@import "styles/utils";
 
 .feedbackCard {
+  display: grid;
+  grid-template-areas: "contents contents"
+                       "upvoteButton commentCount";
   font-size: 13px;
   line-height: 19px;
   background: #FFFFFF;
   border-radius: 10px;
   padding: 24px;
+
+  &:not(.displayStatus) {
+    @include media(">tablet") {
+      grid-template-areas: "upvoteButton contents commentCount";
+      grid-template-columns: 80px 1fr 69px;
+      grid-gap: 0;
+      padding: 28px 32px;
+    }
+
+    .title {
+      @include media(">tablet") {
+        font-size: 18px;
+        line-height: 26px;
+        letter-spacing: -0.25px;
+        margin-bottom: 4px;
+      }
+    }
+
+    .description {
+      @include media(">tablet") {
+        font-size: 16px;
+        line-height: 23px;
+        margin-bottom: 12px;
+      }
+    }
+
+    .upvoteButtonWrapper, .commentCountWrapper {
+      @include media(">tablet") {
+        margin-top: 0;
+      }
+
+      .upvoteButton {
+        @include media(">tablet") {
+          min-width: 40px;
+          min-height: 53px;
+          flex-direction: column;
+          gap: 8px;
+        }
+      }
+
+      .commentCountContainer {
+        @include media(">tablet") {
+          align-items: flex-end;
+          gap: 8px;
+        }
+
+        .commentCount {
+          @include media(">tablet") {
+            font-size: 16px;
+            line-height: 23px;
+            letter-spacing: -0.222222px;
+          }
+        }
+      }
+    }
+
+    .upvoteButtonWrapper {
+      @include media(">tablet") {
+        align-items: flex-start;
+      }
+    }
+  }
 
   &.displayStatus {
     position: relative;
@@ -23,6 +89,10 @@
     .status {
       display: block;
     }
+  }
+
+  .contents {
+    grid-area: contents;
   }
 
   .status {
@@ -58,6 +128,12 @@
   .description {
     color: #647196;
     margin-bottom: 8px;
+
+    @include media(">tablet") {
+      font-size: 16px;
+      line-height: 23px;
+      margin-bottom: 12px;
+    }
   }
 
   .categoryContainer {
@@ -73,9 +149,8 @@
     }
   }
 
-  .footer {
+  .upvoteButtonWrapper, .commentCountWrapper {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     margin-top: 16px;
 
@@ -125,5 +200,14 @@
         }
       }
     }
+  }
+
+  .upvoteButtonWrapper {
+    grid-area: upvoteButton;
+  }
+
+  .commentCountWrapper {
+    grid-area: commentCount;
+    justify-content: flex-end;
   }
 }

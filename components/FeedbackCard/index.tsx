@@ -26,21 +26,23 @@ const FeedbackCard: React.FC<IProps> = ({ feedback, displayStatus, onUpvoteClick
              } as CSSProperties}
              {...props}
         >
-            <div className={styles.status}>
-                {status.replace('-', ' ')}
-            </div>
-            <div className={styles.title}>
-                {title}
-            </div>
-            <p className={styles.description}>
-                {description}
-            </p>
-            <div className={styles.categoryContainer}>
+            <div className={styles.contents}>
+                <div className={styles.status}>
+                    {status.replace('-', ' ')}
+                </div>
+                <div className={styles.title}>
+                    {title}
+                </div>
+                <p className={styles.description}>
+                    {description}
+                </p>
+                <div className={styles.categoryContainer}>
                 <span className={styles.category}>
                     {category}
                 </span>
+                </div>
             </div>
-            <div className={styles.footer}>
+            <div className={styles.upvoteButtonWrapper}>
                 <button className={cn(styles.upvoteButton, {
                     [styles.active]: upvoted,
                 })}
@@ -54,11 +56,14 @@ const FeedbackCard: React.FC<IProps> = ({ feedback, displayStatus, onUpvoteClick
                     <ArrowUpIcon className={styles.icon} />
                     {upvotes}
                 </button>
+            </div>
+            <div className={styles.commentCountWrapper}>
                 <div className={styles.commentCountContainer}>
                     <CommentsIcon />
                     <div className={cn(styles.commentCount, {
                         [styles.zero]: commentCount === 0,
-                    })}>
+                    })}
+                    >
                         {commentCount}
                     </div>
                 </div>
