@@ -1,3 +1,4 @@
+@import "styles/utils";
 
 .commentCard {
   display: flex;
@@ -7,6 +8,10 @@
   .header {
     display: flex;
     gap: 16px;
+
+    @include media(">tablet") {
+      gap: 32px;
+    }
 
     .avatar {
       width: 40px;
@@ -25,12 +30,23 @@
         line-height: 19px;
         letter-spacing: -0.181px;
         color: #3A4374;
+
+        @include media(">tablet") {
+          font-size: 14px;
+          line-height: 20px;
+          letter-spacing: -0.194px;
+        }
       }
 
       .username {
         font-size: 13px;
         line-height: 19px;
         color: #647196;
+
+        @include media(">tablet") {
+          font-size: 14px;
+          line-height: 20px;
+        }
       }
     }
 
@@ -46,16 +62,47 @@
   }
 
   .content {
+    position: relative;
     font-size: 13px;
     line-height: 19px;
     color: #647196;
     word-break: break-word;
+
+    @include media(">tablet") {
+      font-size: 15px;
+      line-height: 22px;
+      padding-left: 72px;
+    }
+
+    &.hasReplies {
+      &::before {
+        position: absolute;
+        top: 0;
+        left: 18px;
+        width: 1px;
+        height: calc(100% + 40px);
+        background: #647196;
+        opacity: 0.1;
+        content: "";
+      }
+    }
 
     .replyingTo {
       font-weight: 700;
       font-size: 13px;
       line-height: 19px;
       color: #AD1FEA;
+
+      @include media(">tablet") {
+        font-size: 15px;
+        line-height: 22px;
+      }
+    }
+  }
+
+  .replyFormWrapper {
+    @include media(">tablet") {
+      padding-left: 72px;
     }
   }
 
@@ -67,6 +114,10 @@
     list-style: none;
     margin-top: 24px;
     padding-left: 24px;
+
+    @include media(">tablet") {
+      padding-left: 42px;
+    }
 
     > li {
       position: relative;

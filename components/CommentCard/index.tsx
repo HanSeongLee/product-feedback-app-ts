@@ -43,7 +43,9 @@ const CommentCard: React.FC<IProps> = ({ parentId, comment, className, ...props 
                     Reply
                 </button>
             </div>
-            <p className={styles.content}>
+            <p className={cn(styles.content, {
+                [styles.hasReplies]: replies?.length > 0,
+            })}>
                 {replyingTo && (
                     <>
                         <span className={styles.replyingTo}>
@@ -54,10 +56,12 @@ const CommentCard: React.FC<IProps> = ({ parentId, comment, className, ...props 
                 {content}
             </p>
             {openReply && (
-                <ReplyFormContainer commentId={parentId ? parentId : id}
-                                    replyingTo={username}
-                                    onSubmitAfter={toggleReply}
-                />
+                <div className={styles.replyFormWrapper}>
+                    <ReplyFormContainer commentId={parentId ? parentId : id}
+                                        replyingTo={username}
+                                        onSubmitAfter={toggleReply}
+                    />
+                </div>
             )}
             {replies?.length > 0 && (
                 <ul className={styles.replyContainer}>
