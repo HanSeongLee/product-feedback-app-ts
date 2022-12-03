@@ -1,3 +1,4 @@
+@import "styles/utils";
 
 .main {
   padding-bottom: 88px;
@@ -7,6 +8,10 @@
     flex-direction: column;
     gap: 24px;
     padding-top: 24px;
+
+    @include media(">tablet") {
+      padding-top: 56px;
+    }
   }
 
   .editFeedbackButton {
@@ -19,12 +24,27 @@
     border: none;
     padding: 10.5px 16px;
     cursor: pointer;
+
+    @include media(">tablet") {
+      min-width: 142px;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      line-height: 20px;
+      padding: 12.5px 25px 11.5px 24px;
+    }
   }
 
-  .commentListBox {
+  .commentListBox, .commentFormWrapper {
     background: #FFFFFF;
     border-radius: 10px;
     padding: 24px;
+
+    @include media(">tablet") {
+      padding: 24px 32px 33px;
+    }
 
     .title {
       font-weight: 700;
@@ -49,6 +69,12 @@
           margin: 24px 0;
         }
       }
+    }
+  }
+
+  .commentFormWrapper {
+    @include media(">tablet") {
+      padding: 24px 34px 32px;
     }
   }
 }

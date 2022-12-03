@@ -25,7 +25,7 @@ const useFeedbackDetailList = () => {
     );
 };
 
-const Home: NextPage = () => {
+const FeedbackDetailPage: NextPage = () => {
     const { query } = useRouter();
     const { id } = query;
     const { feedbackDetailList, loadFeedback } = useFeedbackDetailList();
@@ -93,7 +93,7 @@ const Home: NextPage = () => {
                                         />
                                     </div>
                                 )}
-                                <div className={styles.commentListBox}>
+                                <div className={styles.commentFormWrapper}>
                                     <div className={styles.title}>
                                         Add Comment
                                     </div>
@@ -108,4 +108,4 @@ const Home: NextPage = () => {
     );
 }
 
-export default Home
+export default FeedbackDetailPage;
