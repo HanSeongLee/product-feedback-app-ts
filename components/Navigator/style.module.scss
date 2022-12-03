@@ -1,3 +1,4 @@
+@import "styles/utils";
 
 .navigator {
   display: flex;
@@ -29,6 +30,12 @@
       border: none;
       cursor: pointer;
       margin-bottom: 3px;
+
+      @include media(">tablet") {
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 4px;
+      }
     }
 
     .title {
@@ -36,6 +43,12 @@
       font-size: 18px;
       line-height: 26px;
       letter-spacing: -0.25px;
+
+      @include media(">tablet") {
+        font-size: 24px;
+        line-height: 35px;
+        letter-spacing: -0.33px;
+      }
     }
   }
 }
