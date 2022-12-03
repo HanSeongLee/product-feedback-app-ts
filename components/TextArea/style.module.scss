@@ -1,3 +1,4 @@
+@import "styles/utils";
 
 .textareaWrapper {
   display: flex;
@@ -24,6 +25,13 @@
     border: none;
     padding: 16px 24px 16px 16px;
     resize: none;
+
+
+    @include media(">tablet") {
+      font-size: 15px;
+      line-height: 22px;
+      padding: 16px 23px 16px 23px;
+    }
 
     &:focus {
       outline: 1px solid #4661E6;
