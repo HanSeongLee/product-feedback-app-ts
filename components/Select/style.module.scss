@@ -32,8 +32,8 @@
     line-height: 19px;
 
     @include media(">tablet") {
-      font-size: 14px;
-      line-height: 20px;
+      font-size: 15px;
+      line-height: 22px;
     }
   }
 
@@ -44,6 +44,10 @@
     align-items: center;
     padding: 14px 16px 15px 16px;
     cursor: pointer;
+
+    @include media(">tablet") {
+      padding: 13px 24px;
+    }
 
     .arrowIcon {
       margin-left: 4px;
