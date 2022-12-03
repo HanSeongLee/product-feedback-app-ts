@@ -1,14 +1,25 @@
+@import "styles/utils";
 
 .labelWrapper {
   font-size: 13px;
   line-height: 19px;
   margin-bottom: 16px;
 
+  @include media(">tablet") {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
   .label {
     font-weight: 700;
     letter-spacing: -0.181px;
     color: #3A4374;
     margin-bottom: 3px;
+
+    @include media(">tablet") {
+      letter-spacing: -0.194px;
+      margin-bottom: 2px;
+    }
   }
 
   .description {
