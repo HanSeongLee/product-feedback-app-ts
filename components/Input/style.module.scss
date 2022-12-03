@@ -1,3 +1,4 @@
+@import "styles/utils";
 
 .inputWrapper {
   &.error {
@@ -20,6 +21,10 @@
     border-radius: 5px;
     border: none;
     padding: 15px 16px 14px 16px;
+
+    @include media(">tablet") {
+      padding: 13px 24px;
+    }
 
     &:focus {
       outline: 1px solid #4661E6;
