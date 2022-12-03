@@ -1,3 +1,4 @@
+@import "styles/utils";
 
 .form {
   position: relative;
@@ -6,12 +7,24 @@
   padding: 44px 24px 24px 23.5px;
   margin-top: 20px;
 
+  @include media(">tablet") {
+    padding: 52px 42px 40px;
+    margin-top: 28px;
+  }
+
   .icon {
     position: absolute;
     top: -20px;
     left: 24px;
     width: 40px;
     height: 40px;
+
+    @include media(">tablet") {
+      top: -28px;
+      left: 42px;
+      width: 56px;
+      height: 56px;
+    }
   }
 
   .title {
@@ -21,6 +34,13 @@
     letter-spacing: -0.25px;
     color: #3A4374;
     margin-bottom: 24px;
+
+    @include media(">tablet") {
+      font-size: 24px;
+      line-height: 35px;
+      letter-spacing: -0.33px;
+      margin-bottom: 40px;
+    }
   }
 
   .fields {
@@ -35,6 +55,11 @@
     grid-gap: 16px;
     margin-top: 40px;
 
+    @include media(">tablet") {
+      flex-direction: row-reverse;
+      justify-content: flex-start;
+    }
+
     button {
       min-height: 40px;
       font-weight: 700;
@@ -44,6 +69,12 @@
       border-radius: 10px;
       border: none;
       cursor: pointer;
+
+      @include media(">tablet") {
+        font-size: 14px;
+        line-height: 20px;
+        padding: 12.5px 24px 11.5px 24px;
+      }
     }
 
     .submitButton {
