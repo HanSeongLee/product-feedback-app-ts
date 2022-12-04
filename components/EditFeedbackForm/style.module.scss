@@ -1,5 +1,17 @@
+@import "styles/utils";
 
-.deleteButton {
-  background: #D73737;
-  cursor: pointer;
+.deleteWrapper {
+  @include media(">tablet") {
+    flex: 1;
+  }
+
+  .deleteButton {
+    width: 100%;
+    background: #D73737;
+    cursor: pointer;
+
+    @include media(">tablet") {
+      width: initial;
+    }
+  }
 }

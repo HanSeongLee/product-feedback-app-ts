@@ -27,14 +27,14 @@ const EditFeedbackForm: React.FC<IProps> = ({
               submitButtonText={'Save Changes'}
               onReset={onReset}
               buttons={
-                  <>
+                  <div className={styles.deleteWrapper}>
                       <button className={styles.deleteButton}
                               type={'button'}
                               onClick={onDelete}
                       >
                           Delete
                       </button>
-                  </>
+                  </div>
               }
               {...props}
         >
