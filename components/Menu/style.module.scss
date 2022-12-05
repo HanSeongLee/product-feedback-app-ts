@@ -23,6 +23,10 @@
     padding-bottom: 0;
   }
 
+  @include media(">desktop") {
+    overflow: visible;
+  }
+
   @keyframes slideInLeft {
     0% {
       transform: translateX(100%);
@@ -78,6 +82,11 @@
       gap: 10px;
       padding-top: 0;
     }
+
+    @include media(">desktop") {
+      display: flex;
+      gap: 24px;
+    }
   }
 
   .categoryContainer, .roadmapBox {
@@ -91,8 +100,8 @@
     flex-wrap: wrap;
     padding: 24px 18px 36px 24px;
 
-    @include media(">tablet") {
-
+    @include media(">desktop") {
+      padding: 24px;
     }
 
     button {
@@ -105,6 +114,11 @@
       border: none;
       padding: 5px 16px 6px 16px;
       cursor: pointer;
+      transition: background 0.3s;
+
+      &:hover {
+        background: #CFD7FF;
+      }
 
       &.active {
         color: #FFFFFF;
@@ -138,6 +152,11 @@
         line-height: 19px;
         text-decoration-line: underline;
         color: #4661E6;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #8397F8;
+        }
       }
     }
 
@@ -189,9 +208,21 @@
     border-radius: 10px;
     border: none;
     cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: #656EA3;
+    }
 
     @include media(">tablet") {
       display: none;
+      min-height: 44px;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    @include media(">desktop") {
+      display: block;
     }
   }
 }
