@@ -12,7 +12,7 @@ const Home: NextPage = () => {
                 <Header />
                 <div>
                     <SuggestionBar />
-                    <Container>
+                    <Container className={styles.container}>
                         <FeedbackCardContainer className={styles.feedbackCardContainer} />
                     </Container>
                 </div>
