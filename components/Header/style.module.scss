@@ -13,6 +13,10 @@
     padding: 56px 0 40px;
   }
 
+  @include media(">desktop") {
+    padding: 0;
+  }
+
   .container {
     display: flex;
     justify-content: space-between;
@@ -22,6 +26,11 @@
       height: 178px;
       align-items: initial;
       grid-gap: 10px;
+    }
+
+    @include media(">desktop") {
+      flex-direction: column;
+      grid-gap: 24px;
     }
   }
 
@@ -36,6 +45,12 @@
       background: url("/img/suggestions/tablet/background-header.png") no-repeat;
       border-radius: 10px;
       padding: 24px;
+    }
+
+    @include media(">desktop") {
+      min-width: 255px;
+      min-height: 137px;
+      background: url("/img/suggestions/desktop/background-header.png") no-repeat;
     }
 
     .title {
