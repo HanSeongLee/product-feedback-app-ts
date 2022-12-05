@@ -1,6 +1,21 @@
 @import "styles/utils";
 
 .main {
+  @include media(">desktop") {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: 255px 1fr;
+    max-width: 992px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 94px 24px 0;
+  }
+
+  @include media(">1144px") {
+    max-width: 1110px;
+    padding: 94px 0 0;
+  }
+
   .feedbackCardContainer {
     display: flex;
     flex-direction: column;
@@ -9,6 +24,10 @@
 
     @include media(">tablet") {
       padding: 24px 0 113px;
+    }
+
+    @include media(">desktop") {
+      gap: 20px;
     }
   }
 }

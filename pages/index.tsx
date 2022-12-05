@@ -10,10 +10,12 @@ const Home: NextPage = () => {
         <>
             <main className={styles.main}>
                 <Header />
-                <SuggestionBar />
-                <Container>
-                    <FeedbackCardContainer className={styles.feedbackCardContainer} />
-                </Container>
+                <div>
+                    <SuggestionBar />
+                    <Container>
+                        <FeedbackCardContainer className={styles.feedbackCardContainer} />
+                    </Container>
+                </div>
             </main>
         </>
     );
