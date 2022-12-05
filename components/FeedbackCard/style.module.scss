@@ -75,6 +75,10 @@
   &.displayStatus {
     position: relative;
 
+    @include media(">tablet") {
+      padding: 26px 20px 24px;
+    }
+
     &::before {
       position: absolute;
       top: 0;
@@ -88,6 +92,13 @@
 
     .status {
       display: block;
+    }
+
+    .description {
+      @include media(">tablet") {
+        font-size: 13px;
+        line-height: 19px;
+      }
     }
   }
 
