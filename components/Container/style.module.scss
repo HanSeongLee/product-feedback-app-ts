@@ -9,4 +9,14 @@
     margin-right: auto;
     padding: 0;
   }
+
+  @include media(">desktop") {
+    max-width: 992px;
+    padding: 0 24px;
+  }
+
+  @include media(">1148px") {
+    max-width: 1110px;
+    padding: 0;
+  }
 }
