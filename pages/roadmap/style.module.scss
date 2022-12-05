@@ -1,12 +1,24 @@
+@import "styles/utils";
 
 .main {
   padding-bottom: 88px;
+
+  @include media(">tablet") {
+    padding-top: 56px;
+  }
 
   .container {
     display: flex;
     flex-direction: column;
     gap: 24px;
     padding-top: 24px;
+
+    @include media(">tablet") {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      padding-top: 32px;
+    }
   }
 
   .navigatorWrapper {
@@ -15,6 +27,26 @@
     justify-content: center;
     flex-direction: column;
     background: #373F68;
+
+    @include media(">tablet") {
+      min-height: 113px;
+      border-radius: 10px;
+      padding: 27px 32px;
+    }
+  }
+
+  .mobileHidden {
+    display: none;
+
+    @include media(">tablet") {
+      display: block;
+    }
+  }
+
+  .tab {
+    @include media(">tablet") {
+      display: none;
+    }
   }
 
   .addFeedbackButton {
@@ -29,5 +61,12 @@
     color: #F2F4FE;
     background: #AD1FEA;
     border-radius: 10px;
+
+    @include media(">tablet") {
+      min-width: 158px;
+      min-height: 44px;
+      font-size: 14px;
+      line-height: 20px;
+    }
   }
 }

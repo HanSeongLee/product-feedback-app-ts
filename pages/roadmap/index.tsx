@@ -13,6 +13,7 @@ import { useStore } from 'lib/store';
 import shallow from 'zustand/shallow';
 import axios from 'axios';
 import { signIn, useSession } from 'next-auth/react';
+import cn from 'classnames';
 
 const useFeedback = () => {
     return useStore(
@@ -100,30 +101,56 @@ const RoadmapPage: NextPage = () => {
                         </Link>
                     </Navigator>
                 </Container>
-                <Tab items={tabItems}
+                <Tab className={styles.tab}
+                     items={tabItems}
                      selected={tabSelected}
                      onSelectedChange={onTabChange}
                 />
                 <Container className={styles.container}>
                     {feedbackList && roadmapList &&
                         feedbackList.length > 0 && roadmapList.length > 0 && (
-                            <RoadmapColumn
-                                title={`${filteredRoadmap[tabSelected].status} (${filteredRoadmap[tabSelected].count})`}
-                                description={StatusDescriptionList[filteredRoadmap[tabSelected].status]}
-                            >
-                                {feedbackList
-                                    .filter(({ status }) => status === filteredRoadmap[tabSelected].status)
-                                    .map((item, index) => (
-                                        <Link href={`/feedback/${item.id}`}>
-                                            <a key={index}>
-                                                <FeedbackCard feedback={item}
-                                                              displayStatus
-                                                              onUpvoteClick={onUpvoteClick}
-                                                />
-                                            </a>
-                                        </Link>
-                                    ))}
-                            </RoadmapColumn>
+                            <>
+                                {filteredRoadmap.map(({ status, count }, index) => (
+                                    <RoadmapColumn className={cn({
+                                        [styles.mobileHidden]: tabSelected !== index
+                                    })}
+                                                   title={`${status} (${count})`}
+                                                   description={`${StatusDescriptionList[status]}`}
+                                                   key={index}
+                                    >
+                                        {feedbackList
+                                            .filter(({ status: _status }) => _status === status)
+                                            .map((item, index) => (
+                                                <Link href={`/feedback/${item.id}`}>
+                                                    <a key={index}>
+                                                        <FeedbackCard feedback={item}
+                                                                      displayStatus
+                                                                      onUpvoteClick={onUpvoteClick}
+                                                        />
+                                                    </a>
+                                                </Link>
+                                            ))
+                                        }
+                                    </RoadmapColumn>
+                                ))}
+                            </>
+                            // <RoadmapColumn
+                            //     title={`${filteredRoadmap[tabSelected].status} (${filteredRoadmap[tabSelected].count})`}
+                            //     description={StatusDescriptionList[filteredRoadmap[tabSelected].status]}
+                            // >
+                            //     {feedbackList
+                            //         .filter(({ status }) => status === filteredRoadmap[tabSelected].status)
+                            //         .map((item, index) => (
+                            //             <Link href={`/feedback/${item.id}`}>
+                            //                 <a key={index}>
+                            //                     <FeedbackCard feedback={item}
+                            //                                   displayStatus
+                            //                                   onUpvoteClick={onUpvoteClick}
+                            //                     />
+                            //                 </a>
+                            //             </Link>
+                            //         ))}
+                            // </RoadmapColumn>
                         )}
                 </Container>
             </main>
