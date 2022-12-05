@@ -56,6 +56,11 @@
     .value {
       color: #F2F4FE;
       padding: 0;
+      transition: opacity 0.3s;
+
+      &:hover {
+        opacity: 0.75;
+      }
 
       svg path {
         stroke: #FFFFFF !important;
@@ -76,6 +81,11 @@
     background: #AD1FEA;
     border-radius: 10px;
     cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: #C75AF6;
+    }
 
     @include media(">tablet") {
       min-width: 158px;
