@@ -8,10 +8,14 @@ import CommentsIcon from 'public/icons/icon-comments.svg';
 interface IProps extends HTMLAttributes<HTMLDivElement> {
     feedback: FeedbackType;
     displayStatus?: boolean;
+    hoverEffect?: boolean;
     onUpvoteClick?: (event: React.MouseEvent, feedback: FeedbackType) => void;
 }
 
-const FeedbackCard: React.FC<IProps> = ({ feedback, displayStatus, onUpvoteClick, className, ...props }) => {
+const FeedbackCard: React.FC<IProps> = ({
+                                            feedback, displayStatus, hoverEffect, onUpvoteClick,
+                                            className, ...props
+                                        }) => {
     const {
         title, description, category, upvoted,
         upvotes, status, commentCount
@@ -20,6 +24,7 @@ const FeedbackCard: React.FC<IProps> = ({ feedback, displayStatus, onUpvoteClick
     return (
         <div className={cn(styles.feedbackCard, {
             [styles.displayStatus]: displayStatus,
+            [styles.hoverEffect]: hoverEffect,
         }, className)}
              style={{
                  '--status-color': StatusColors[status],
@@ -74,6 +79,7 @@ const FeedbackCard: React.FC<IProps> = ({ feedback, displayStatus, onUpvoteClick
 
 FeedbackCard.defaultProps = {
     displayStatus: false,
+    hoverEffect: true,
 };
 
 export default FeedbackCard;

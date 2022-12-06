@@ -82,6 +82,7 @@ const FeedbackDetailPage: NextPage = () => {
                             <>
                                 <FeedbackCard feedback={feedback}
                                               onUpvoteClick={onUpvoteClick}
+                                              hoverEffect={false}
                                 />
                                 {feedback.commentCount > 0 && (
                                     <div className={styles.commentListBox}>
