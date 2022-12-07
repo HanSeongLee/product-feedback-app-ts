@@ -12,6 +12,10 @@
     @include media(">tablet") {
       padding-top: 56px;
     }
+
+    @include media(">desktop") {
+      max-width: 730px;
+    }
   }
 
   .editFeedbackButton {
