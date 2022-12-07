@@ -9,6 +9,11 @@
     width: 100%;
     background: #D73737;
     cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+      background: #E98888;
+    }
 
     @include media(">tablet") {
       width: initial;
