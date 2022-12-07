@@ -79,10 +79,20 @@
 
     .submitButton {
       background: #AD1FEA;
+      transition: background 0.3s;
+
+      &:hover {
+        background: #C75AF6;
+      }
     }
 
     .resetButton {
       background: #3A4374;
+      transition: background 0.3s;
+
+      &:hover {
+        background: #656EA3;
+      }
     }
   }
 }
