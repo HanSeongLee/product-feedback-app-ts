@@ -34,6 +34,11 @@
       border: none;
       padding: 10.5px 16px;
       cursor: pointer;
+      transition: background 0.3s;
+
+      &:hover {
+        background: #C75AF6;
+      }
 
       @include media(">tablet") {
         min-width: 117px;
