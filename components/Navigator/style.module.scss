@@ -31,6 +31,10 @@
       cursor: pointer;
       margin-bottom: 3px;
 
+      &:hover {
+        text-decoration: underline;
+      }
+
       @include media(">tablet") {
         font-size: 14px;
         line-height: 20px;
