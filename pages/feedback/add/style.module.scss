@@ -13,5 +13,10 @@
       padding-top: 56px;
       gap: 40px;
     }
+
+    @include media(">desktop") {
+      padding-top: 92px;
+      max-width: 540px;
+    }
   }
 }
