@@ -15,6 +15,12 @@
       line-height: 20px;
       letter-spacing: -0.194px;
     }
+
+    @include media(">desktop") {
+      font-size: 18px;
+      line-height: 26px;
+      letter-spacing: -0.25px;
+    }
   }
 
   .description {
@@ -27,11 +33,21 @@
       font-size: 14px;
       line-height: 20px;
     }
+
+    @include media(">desktop") {
+      font-size: 16px;
+      line-height: 23px;
+      margin-bottom: 32px;
+    }
   }
 
   .container {
     display: flex;
     flex-direction: column;
     grid-gap: 16px;
+
+    @include media(">desktop") {
+      grid-gap: 24px;
+    }
   }
 }
