@@ -87,6 +87,10 @@
       padding: 26px 20px 24px;
     }
 
+    @include media(">desktop") {
+      padding: 31px 32px 32px 31px;
+    }
+
     &::before {
       position: absolute;
       top: 0;
@@ -107,6 +111,12 @@
         font-size: 13px;
         line-height: 19px;
       }
+
+      @include media(">desktop") {
+        font-size: 16px;
+        line-height: 23px;
+        margin-bottom: 12px;
+      }
     }
   }
 
@@ -123,6 +133,12 @@
     text-transform: capitalize;
     padding-left: 16px;
     margin-bottom: 16px;
+
+    @include media(">desktop") {
+      font-size: 16px;
+      line-height: 23px;
+      margin-bottom: 8px;
+    }
 
     &::before {
       position: absolute;
@@ -142,6 +158,13 @@
     letter-spacing: -0.181px;
     color: #3A4374;
     margin-bottom: 9px;
+
+    @include media(">desktop") {
+      font-size: 18px;
+      line-height: 26px;
+      letter-spacing: -0.25px;
+      margin-bottom: 4px;
+    }
   }
 
   .description {
@@ -152,6 +175,10 @@
       font-size: 16px;
       line-height: 23px;
       margin-bottom: 12px;
+    }
+
+    @include media(">desktop") {
+      margin-bottom: 16px;
     }
   }
 
@@ -202,6 +229,11 @@
         }
       }
 
+      @include media(">desktop") {
+        min-width: 69px;
+        min-height: 40px;
+      }
+
       .icon {
         width: 8px;
       }
@@ -214,6 +246,14 @@
       text-align: center;
       letter-spacing: -0.181px;
       color: #3A4374;
+
+      @include media(">desktop") {
+        align-items: flex-end;
+        font-size: 16px;
+        line-height: 23px;
+        letter-spacing: -0.222px;
+        gap: 8px;
+      }
 
       .commentCount {
         width: 18px;
