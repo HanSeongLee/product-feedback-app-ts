@@ -7,6 +7,10 @@
     padding-top: 56px;
   }
 
+  @include media(">desktop") {
+    padding-top: 78px;
+  }
+
   .container {
     display: flex;
     flex-direction: column;
@@ -18,6 +22,11 @@
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
       padding-top: 32px;
+    }
+
+    @include media(">desktop") {
+      gap: 30px;
+      padding-top: 48px;
     }
   }
 
@@ -61,6 +70,11 @@
     color: #F2F4FE;
     background: #AD1FEA;
     border-radius: 10px;
+    transition: background 0.3s;
+
+    &:hover {
+      background: #C75AF6;
+    }
 
     @include media(">tablet") {
       min-width: 158px;
