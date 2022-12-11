@@ -24,45 +24,46 @@ const Menu: React.FC<IProps> = ({ open, onClose, className, ...props }) => {
             <div className={styles.overlay}
                  onClick={onClose}
             ></div>
-            <Container className={styles.container}>
-                <CategorySelectContainer className={styles.categoryContainer} />
-
-                <div className={styles.roadmapBox}>
-                    <div className={styles.header}>
-                        <div className={styles.title}>
-                            Roadmap
+            <div className={styles.wrapper}>
+                <Container className={styles.container}>
+                    <CategorySelectContainer className={styles.categoryContainer} />
+                    <div className={styles.roadmapBox}>
+                        <div className={styles.header}>
+                            <div className={styles.title}>
+                                Roadmap
+                            </div>
+                            <Link href={'/roadmap'}>
+                                <a className={styles.viewLink}>
+                                    View
+                                </a>
+                            </Link>
                         </div>
-                        <Link href={'/roadmap'}>
-                            <a className={styles.viewLink}>
-                                View
-                            </a>
-                        </Link>
+                        <RoadmapContainer className={styles.roadmapContainer}
+                                          itemStyle={{
+                                              root: styles.item,
+                                              name: styles.name,
+                                              count: styles.count,
+                                          }}
+                        />
                     </div>
-                    <RoadmapContainer className={styles.roadmapContainer}
-                                      itemStyle={{
-                                          root: styles.item,
-                                          name: styles.name,
-                                          count: styles.count,
-                                      }}
-                    />
-                </div>
 
-                <div>
-                    {!session ? (
-                        <button className={styles.signinButton}
-                                onClick={() => signIn()}
-                        >
-                            Sign in
-                        </button>
-                    ) : (
-                        <button className={styles.signinButton}
-                                onClick={() => signOut()}
-                        >
-                            Sign out
-                        </button>
-                    )}
-                </div>
-            </Container>
+                    <div>
+                        {!session ? (
+                            <button className={styles.signinButton}
+                                    onClick={() => signIn()}
+                            >
+                                Sign in
+                            </button>
+                        ) : (
+                            <button className={styles.signinButton}
+                                    onClick={() => signOut()}
+                            >
+                                Sign out
+                            </button>
+                        )}
+                    </div>
+                </Container>
+            </div>
         </div>
     );
 };
