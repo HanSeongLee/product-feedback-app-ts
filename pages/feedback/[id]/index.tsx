@@ -68,14 +68,16 @@ const FeedbackDetailPage: NextPage = () => {
         <>
             <main className={styles.main}>
                 <Container className={styles.container}>
-                    <Navigator >
-                        <Link href={`/feedback/${id}/edit`}>
-                            <a className={styles.editFeedbackButton}
-                               type={'button'}
-                            >
-                                Edit Feedback
-                            </a>
-                        </Link>
+                    <Navigator>
+                        {session && (
+                            <Link href={`/feedback/${id}/edit`}>
+                                <a className={styles.editFeedbackButton}
+                                   type={'button'}
+                                >
+                                    Edit Feedback
+                                </a>
+                            </Link>
+                        )}
                     </Navigator>
                     {feedback &&
                         (

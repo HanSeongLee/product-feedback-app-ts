@@ -7,6 +7,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FeedbackType } from 'types/feedback';
+import { GetServerSideProps } from 'next';
+import { unstable_getServerSession } from 'next-auth';
+import { authOptions } from 'pages/api/auth/[...nextauth]';
 
 const FeedbackEditPage: NextPage = () => {
     const [feedback, setFeedback] = useState<FeedbackType | undefined>();
@@ -44,5 +47,26 @@ const FeedbackEditPage: NextPage = () => {
         </>
     );
 };
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const session = await unstable_getServerSession(
+        context.req,
+        context.res,
+        authOptions
+    );
+
+    if (!session) {
+        return {
+            redirect: {
+                destination: `/auth/signin?callbackUrl=${context.resolvedUrl}`,
+                permanent: false,
+            },
+        }
+    }
+
+    return {
+        props: {},
+    };
+}
 
 export default FeedbackEditPage;
