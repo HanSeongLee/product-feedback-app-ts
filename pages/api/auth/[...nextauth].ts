@@ -10,6 +10,15 @@ export const authOptions: NextAuthOptions = {
         GithubProvider({
             clientId: process.env.GITHUB_ID || '',
             clientSecret: process.env.GITHUB_SECRET || '',
+            profile(profile) {
+                return {
+                    id: profile.id,
+                    name: profile.name,
+                    email: profile.email,
+                    image: profile.avatar_url,
+                    username: profile.login
+,                };
+            }
         }),
         // ...add more providers here
     ],
