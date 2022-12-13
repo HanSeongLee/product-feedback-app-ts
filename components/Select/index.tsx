@@ -53,7 +53,9 @@ const Select: React.FC<IProps> = ({
                             {options.find(({ value: _value }) => _value === value)?.label}
                         </>
                     )}&nbsp;
-                    <ArrowDownIcon className={styles.arrowIcon} />
+                    <ArrowDownIcon className={styles.arrowIcon}
+                                   title={'Arrow Down'}
+                    />
                 </div>
             </div>
             <div className={styles.listWrapper}>

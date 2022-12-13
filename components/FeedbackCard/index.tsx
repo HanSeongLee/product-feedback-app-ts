@@ -58,13 +58,15 @@ const FeedbackCard: React.FC<IProps> = ({
                             }
                         }}
                 >
-                    <ArrowUpIcon className={styles.icon} />
+                    <ArrowUpIcon className={styles.icon}
+                                 title={'Arrow Up'}
+                    />
                     {upvotes}
                 </button>
             </div>
             <div className={styles.commentCountWrapper}>
                 <div className={styles.commentCountContainer}>
-                    <CommentsIcon />
+                    <CommentsIcon title={'Comments'} />
                     <div className={cn(styles.commentCount, {
                         [styles.zero]: commentCount === 0,
                     })}

@@ -55,7 +55,7 @@ const Header: React.FC<IProps> = ({ className, ...props }) => {
                         type={'button'}
                         onClick={handleMenuOpenToggle}
                 >
-                    {!menuOpen ? <MenuIcon /> : <CloseIcon />}
+                    {!menuOpen ? <MenuIcon title={'Menu'} /> : <CloseIcon title={'Close'} />}
                 </button>
                 <Menu open={menuOpen}
                       onClose={handleMenuOpenToggle}

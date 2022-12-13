@@ -65,7 +65,9 @@ const SuggestionBar: React.FC = () => {
             <Container className={styles.container}>
                 <div className={styles.leftSide}>
                     <div className={styles.title}>
-                        <SuggestionsIcon className={styles.icon} />
+                        <SuggestionsIcon className={styles.icon}
+                                         title={'Suggestions'}
+                        />
                         {feedbackList?.length} Suggestions
                     </div>
                     <Select className={styles.select}
