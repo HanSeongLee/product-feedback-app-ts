@@ -8,6 +8,7 @@ import EmptyFeedbackBox from 'components/EmptyFeedbackBox';
 import { signIn, useSession } from 'next-auth/react';
 import { FeedbackType } from 'types/feedback';
 import { useRouter } from 'next/router';
+import { makeSortQueries } from 'lib/api/Feedback';
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
 
@@ -19,6 +20,8 @@ const useFeedback = () => {
             feedbackList: store.feedbackList,
             setFeedbackList: store.setFeedbackList,
             setRoadmapList: store.setRoadmapList,
+            query: store.query,
+            setQuery: store.setQuery,
         }),
         shallow
     );
@@ -26,36 +29,18 @@ const useFeedback = () => {
 
 const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
     const router = useRouter();
-    const { feedbackList, setFeedbackList, setRoadmapList } = useFeedback();
+    const {
+        feedbackList, setFeedbackList, setRoadmapList, query,
+        setQuery,
+    } = useFeedback();
     const { data: session } = useSession();
-
-    const makeSortQueries = () => {
-        const { sort } = router.query;
-
-        if (!sort) {
-            return {
-                sort_by: 'upvotes',
-                order_by: 'desc',
-            };
-        }
-
-        const sortParam = String(sort).split('|');
-        return sortParam.length === 0 ? {} :
-            sortParam.length === 1 ? {
-                sort_by: sortParam[0],
-                order_by: 'asc',
-            } : {
-                sort_by: sortParam[0],
-                order_by: sortParam[1],
-            };
-    };
 
     const loadFeedbackList = async () => {
         try {
             const { data } = await axios.get(`/api/feedback`, {
                 params: {
                     category: router.query.category,
-                    ...makeSortQueries(),
+                    ...makeSortQueries(router.query?.sort as string),
                 },
             });
             setFeedbackList(data?.items);
@@ -88,8 +73,13 @@ const FeedbackCardContainer: React.FC<IProps> = ({ ...props }) => {
     }, [session, router.query.category, router.query.sort]);
 
     useEffect(() => {
+        if (JSON.stringify(router.query) === JSON.stringify(query)) {
+            return;
+        }
+
         loadFeedbackList();
-    }, [router.query.category, router.query.sort]);
+        setQuery(router.query);
+    }, [query, router.query.category, router.query.sort]);
 
     return (
         <div {...props}>

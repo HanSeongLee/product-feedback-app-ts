@@ -2,9 +2,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { withSentry } from '@sentry/nextjs';
 import { PrismaClient } from '@prisma/client';
-import { RoadmapType } from 'types/roadmap';
 import { unstable_getServerSession } from 'next-auth';
 import { authOptions } from 'pages/api/auth/[...nextauth]';
+import { getFeedbackList } from 'lib/api/Feedback';
 
 const prisma = new PrismaClient();
 
@@ -15,66 +15,15 @@ const get = async (
     const { category, sort_by, order_by } = req.query;
 
     const session = await unstable_getServerSession(req, res, authOptions);
-
-    const upvotes = session ? {
-        where: {
-            userId: session.user.id,
-        },
-        select: {
-            id: true,
-        },
-    } : false;
-
-    const feedbackList = await prisma.feedback.findMany({
-        where: {
-            category: category as string,
-        },
-        orderBy: sort_by === 'upvotes' && order_by ? [
-            {
-                'upvoteCount': order_by as string,
-            },
-        ] : sort_by === 'commentCount' && order_by ? {
-            comments: {
-                _count: order_by as string,
-            },
-        } as any : undefined,
-        include: {
-            upvotes,
-            _count: {
-                select: {
-                    comments: true,
-                },
-            },
-        },
+    const feedbackList = await getFeedbackList({
+        prisma,
+        category: category as string,
+        sort_by: sort_by as string,
+        order_by: order_by as string,
+        session,
     });
 
-    const statusCount = await prisma.feedback.groupBy({
-        by: ['status'],
-        _count: {
-            status: true,
-        },
-    });
-    const roadmap: RoadmapType[] = statusCount
-        .map(({ _count, status }) => {
-        return {
-            status,
-            count: _count.status,
-        }
-    });
-
-    return res.status(200).json({
-        items: feedbackList.map((feedback) => {
-            return {
-                ...feedback,
-                upvoted: feedback?.upvotes?.length > 0,
-                upvotes: feedback.upvoteCount,
-                upvoteCount: undefined,
-                commentCount: feedback._count.comments,
-                _count: undefined,
-            };
-        }),
-        roadmap,
-    });
+    return res.status(200).json(feedbackList);
 };
 
 const post = async (

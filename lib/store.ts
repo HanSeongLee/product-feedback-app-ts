@@ -20,6 +20,7 @@ const getDefaultInitialState = () => ({
     roadmapList: [] as RoadmapType[],
     menuOpen: false,
     feedbackDetailList: {} as {[key: string]: FeedbackWithCommentsType},
+    query: {},
 });
 
 const zustandContext = createContext<UseStoreState>();
@@ -53,7 +54,10 @@ export const initializeStore = (preloadedState = {}) => {
                 } catch (e) {
                     console.error(e);
                 }
-            }
+            },
+            setQuery: (query: object) => {
+                set({ query, });
+            },
         }))
     );
 };
@@ -82,7 +86,7 @@ export const useCreateStore = (serverInitialState: InitialState) => {
                     // re-use functions from existing store
                     ...store.getState(),
                     // but reset all other properties.
-                    ...serverInitialState,
+                    // ...serverInitialState,
                 },
                 true // replace states, rather than shallow merging
             );
